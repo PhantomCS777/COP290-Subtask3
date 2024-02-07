@@ -14,12 +14,16 @@ std::string replace_hyphens(std::string str){
     }
     return ans;
 }
-Output basic(std::vector <StockData> stockdata,int n,std::string start_date,std::string end_date,int limit)
+Output basic(std::vector <StockData> stockdata,Input inp)
 {
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
+    std::string start_date = inp.start_date;
+    std::string end_date = inp.end_date;
     start_date=reverse(start_date);
     end_date=reverse(end_date);
+    int limit=inp.x;
+    int n=inp.n;
     int curposition=0;
     int cur_trend=0;
     int trend_days=0;
