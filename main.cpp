@@ -1,6 +1,6 @@
 #include <bits/stdc++.h> 
 #include "src/stock_data.h"
-
+#include "src/basic.cpp"
 
 
 
@@ -80,24 +80,32 @@ int main(int argc, char* argv[])
         std::cout << argv[i] << std::endl;
     }
 
+    std::vector<StockData> v = readStockPrice("data.csv"); 
     Input input; 
     std::string strategy = argv[1]; 
     if(strategy == "BASIC")
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.n  = (int)argv[3]; 
-        input.x = (int)argv[4];
+        input.n  = std::stoi(argv[3]); 
+        input.x = std::stoi(argv[4]);
         input.start_date = argv[5];
         input.end_date = argv[6];
+        Output a= basic(v,input);
+        std::cout<<"c++ output"<<std::endl; 
+        std::cout<<a.final_profit_loss<<std::endl;
+        std::cout<<a.daily.size()<<std::endl;
+        for(auto ele:a.daily){
+            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
+        }
         
     }
     else if(strategy == "DMA")
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.n  = (int)argv[3]; 
-        input.x = (int)argv[4];
+        input.n  = std::stoi(argv[3]); 
+        input.x = std::stoi(argv[4]);
         input.p = std::stod(argv[5]);
         input.start_date = argv[6];
         input.end_date = argv[7];
@@ -107,10 +115,10 @@ int main(int argc, char* argv[])
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.n  = (int)argv[5]; 
-        input.x = (int)argv[3];
+        input.n  = std::stoi(argv[5]); 
+        input.x = std::stoi(argv[3]);
         input.p = std::stod(argv[4]);
-        input.max_hold_days = (int)argv[6]; 
+        input.max_hold_days = std::stoi(argv[6]); 
         input.c1 = std::stod(argv[7]); 
         input.c2 = std::stod(argv[8]); 
         input.start_date = argv[9];
@@ -122,7 +130,7 @@ int main(int argc, char* argv[])
         input.strategy = strategy; 
         input.symbol = argv[2]; 
       
-        input.x = (int)argv[3];
+        input.x = std::stoi(argv[3]);
        
         input.start_date = argv[4];
         input.end_date = argv[5];
@@ -133,8 +141,8 @@ int main(int argc, char* argv[])
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.n  = (int)argv[4]; 
-        input.x = (int)argv[3];
+        input.n  = std::stoi(argv[4]); 
+        input.x = std::stoi(argv[3]);
         input.oversold_threshold = std::stod(argv[5]);
         input.overbought_threshold = std::stod(argv[6]);
         input.start_date = argv[7];
@@ -145,8 +153,8 @@ int main(int argc, char* argv[])
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.n  = (int)argv[4]; 
-        input.x = (int)argv[3];
+        input.n  = std::stoi(argv[4]); 
+        input.x = std::stoi(argv[3]);
         input.adx_threshold = std::stod(argv[5]); 
         input.start_date = argv[6];
         input.end_date = argv[7];
@@ -156,8 +164,8 @@ int main(int argc, char* argv[])
     {
         input.strategy = strategy; 
         input.symbol = argv[2]; 
-        input.p  = (int)argv[4]; 
-        input.x = (int)argv[3];
+        input.p  = std::stoi(argv[4]); 
+        input.x = std::stoi(argv[3]);
         input.train_start_date = (argv[5]); 
         input.train_end_date = argv[6];
         input.start_date = argv[7];
@@ -177,8 +185,8 @@ int main(int argc, char* argv[])
         input.strategy = strategy; 
         input.symbol1 = argv[2]; 
         input.symbol2 = argv[3]; 
-        input.n  = (int)argv[5]; 
-        input.x = (int)argv[4];
+        input.n  = std::stoi(argv[5]); 
+        input.x = std::stoi(argv[4]);
         input.threshold = std::stod(argv[6]); 
         if(argc == 9){
         input.start_date = argv[7];
@@ -193,7 +201,7 @@ int main(int argc, char* argv[])
 
     }
 
-    std::vector<StockData> v = readStockPrice("data.csv"); 
+   
 
     // print_stock_data(v); 
 }

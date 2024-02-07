@@ -7,7 +7,7 @@ all: $(CPP_BINARY) run
 
 
 $(CPP_BINARY): $(CPP_SOURCE)
-	@g++ -o $(CPP_BINARY) $(CPP_SOURCE)
+	@g++ -std=c++17 -o $(CPP_BINARY) $(CPP_SOURCE)
 
 
 run: 
