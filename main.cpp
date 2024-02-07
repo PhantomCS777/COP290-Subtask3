@@ -7,12 +7,18 @@
 struct StockData 
 {
     std::string date; 
+
     double open; 
     double close; 
-
     double high; 
+
+    double prev_close; 
+    double wh52; 
+    double wl52; 
+
     double low; 
     double ltp; 
+    double vwap; 
 
     double volume; 
     double value ;
@@ -26,6 +32,7 @@ std::vector<StockData> readStockPrice(const std::string& filename)
     std::vector<StockData> stock_data;
     std::ifstream file("resources/" +filename); 
     if (!file.is_open()) {
+     
         throw std::runtime_error("file is not open");
         return stock_data;
     }
@@ -33,19 +40,32 @@ std::vector<StockData> readStockPrice(const std::string& filename)
     std::getline(file,line); 
     while(std::getline(file,line))
     {
+    
         std::istringstream iss(line);
+
         StockData row; 
         if (std::getline(iss, row.date, ',') &&
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.open) &&
-            std::getline(iss, value, ',') && (std::stringstream(value) >> row.close) &&
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.high) &&
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.low) &&
+
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.prev_close) &&
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.ltp) &&
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.close) &&
+
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.vwap) &&
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.wh52) &&
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.wl52) &&
+
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.volume) &&
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.value) &&
-            std::getline(iss, value, ',') && (std::stringstream(value) >> row.no_of_trades)) {
+            std::getline(iss, value, ',') && (std::stringstream(value) >> row.no_of_trades))
+        {
+
+  
             stock_data.push_back(row);
         }
+        
 
     }
      file.close();
@@ -54,6 +74,7 @@ std::vector<StockData> readStockPrice(const std::string& filename)
 
 void print_stock_data(std::vector<StockData> stock_data)
 {
+   
     int length = stock_data.size(); 
     for(int i = 0 ; i < length; i++)
     {
@@ -69,11 +90,14 @@ void print_stock_data(std::vector<StockData> stock_data)
         std::cout<<stock_data[i].value<<" ";
         std::cout<<stock_data[i].no_of_trades<<std::endl;
     }
+      
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+
     std::vector<StockData> v = readStockPrice("data.csv"); 
+
     print_stock_data(v); 
 }
 
