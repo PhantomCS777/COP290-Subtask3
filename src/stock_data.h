@@ -25,6 +25,8 @@ struct Input
 {
     std::string strategy; 
     std::string symbol; 
+    std::string symbol1; 
+    std::string symbol2; 
     std::string start_date; 
     std::string end_date; 
     std::string train_start_date; 
@@ -39,6 +41,7 @@ struct Input
      double overbought_threshold;
      double adx_threshold;
      double threshold; 
+     double stop_loss_threshold; 
      
 
 };

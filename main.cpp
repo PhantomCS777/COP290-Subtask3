@@ -79,6 +79,7 @@ int main(int argc, char* argv[])
     for (int i = 0; i < argc; ++i) {
         std::cout << argv[i] << std::endl;
     }
+
     Input input; 
     std::string strategy = argv[1]; 
     if(strategy == "BASIC")
@@ -91,6 +92,107 @@ int main(int argc, char* argv[])
         input.end_date = argv[6];
         
     }
+    else if(strategy == "DMA")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.n  = (int)argv[3]; 
+        input.x = (int)argv[4];
+        input.p = std::stod(argv[5]);
+        input.start_date = argv[6];
+        input.end_date = argv[7];
+
+    }
+     else if(strategy == "DMA++")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.n  = (int)argv[5]; 
+        input.x = (int)argv[3];
+        input.p = std::stod(argv[4]);
+        input.max_hold_days = (int)argv[6]; 
+        input.c1 = std::stod(argv[7]); 
+        input.c2 = std::stod(argv[8]); 
+        input.start_date = argv[9];
+        input.end_date = argv[10];
+
+    }
+      else if(strategy == "MACD")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+      
+        input.x = (int)argv[3];
+       
+        input.start_date = argv[4];
+        input.end_date = argv[5];
+
+    }
+
+     else if(strategy == "RSI")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.n  = (int)argv[4]; 
+        input.x = (int)argv[3];
+        input.oversold_threshold = std::stod(argv[5]);
+        input.overbought_threshold = std::stod(argv[6]);
+        input.start_date = argv[7];
+        input.end_date = argv[8];
+
+    }
+     else if(strategy == "ADX")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.n  = (int)argv[4]; 
+        input.x = (int)argv[3];
+        input.adx_threshold = std::stod(argv[5]); 
+        input.start_date = argv[6];
+        input.end_date = argv[7];
+
+    }
+     else if(strategy == "LINEAR_REGRESSION")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.p  = (int)argv[4]; 
+        input.x = (int)argv[3];
+        input.train_start_date = (argv[5]); 
+        input.train_end_date = argv[6];
+        input.start_date = argv[7];
+        input.end_date = argv[8];
+
+    }
+     else if(strategy == "BEST_OF_ALL")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.start_date = argv[3];
+        input.end_date = argv[4];
+
+    }
+     else if(strategy == "PAIRS")
+    {
+        input.strategy = strategy; 
+        input.symbol1 = argv[2]; 
+        input.symbol2 = argv[3]; 
+        input.n  = (int)argv[5]; 
+        input.x = (int)argv[4];
+        input.threshold = std::stod(argv[6]); 
+        if(argc == 9){
+        input.start_date = argv[7];
+        input.end_date = argv[8];
+        }
+        else
+        {
+            input.stop_loss_threshold = std::stod(argv[7]); 
+            input.start_date = argv[8];
+            input.end_date = argv[9];
+        }
+
+    }
+
     std::vector<StockData> v = readStockPrice("data.csv"); 
 
     // print_stock_data(v); 

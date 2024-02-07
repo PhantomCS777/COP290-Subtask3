@@ -37,14 +37,74 @@ def write_function(start_date,end_date,symbol):
     
 def strategy(args):
     strat = args[1] 
+    start_date = ""
+    end_date = ""
+    n = 0 
     if strat == "BASIC":
         symbol = args[2] 
         n = int(args[3])
         start_date = args[5]
         end_date = args[6]    
-        start_date = get_past_date(start_date,7*n/5 + 7)
-        return (symbol,start_date,end_date)
+        
+      
+    
+    elif strat == "DMA": 
+        symbol = args[2] 
+        n = int(args[3])
+        start_date = args[6]
+        end_date = args[7]  
+        
+        
+        
+    elif strat == "DMA++": 
+        symbol = args[2] 
+        n = int(args[5]) 
+        start_date = args[9]
+        end_date = args[10]  
 
+    elif strat == "MACD": 
+        symbol = args[2] 
+        start_date = args[4]
+        end_date = args[5] 
+        
+    
+    elif strat == "RSI": 
+        symbol = args[2] 
+        n = int(args[4])
+        start_date = args[7]
+        end_date = args[8] 
+        
+    
+    elif strat == "ADX": 
+        symbol = args[2] 
+        n = int(args[4])
+        start_date = args[6]
+        end_date = args[7] 
+        
+    
+    elif strat == "LINEAR_REGRESSION": 
+        symbol = args[2] 
+        train_start_date = args[5]
+        train_end_date = args[6] 
+        start_date = args[7]
+        end_date = args[8] 
+        
+        
+    elif strat == "BEST_OF_ALL": 
+        symbol = args[2] 
+        start_date = args[3]
+        end_date = args[4] 
+        
+        
+    elif strat == "PAIRS": 
+        symbol = args[2] 
+        start_date = args[7]
+        end_date = args[8] 
+        
+    
+    
+    start_date = get_past_date(start_date,7*n/5 + 7)
+    return (symbol,start_date,end_date)
         
         
            
