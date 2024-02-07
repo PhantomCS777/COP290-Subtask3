@@ -95,4 +95,3 @@ int main(int argc, char* argv[])
 
     // print_stock_data(v); 
 }
-

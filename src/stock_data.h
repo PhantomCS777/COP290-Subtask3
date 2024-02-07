@@ -1,7 +1,4 @@
 #include <bits/stdc++.h> 
-
-
-
 struct StockData 
 {
     std::string date; 
@@ -24,7 +21,6 @@ struct StockData
     
 };
 
-
 struct Input
 {
     std::string strategy; 
@@ -46,3 +42,41 @@ struct Input
      
 
 };
+
+class Cash_flow{
+    public:
+    std::string date;
+    double transaction;
+
+    Cash_flow(std::string date,double transaction){
+        date=date;
+        transaction=transaction;
+    }
+};
+
+class Order_stats{
+    public:
+    std::string date;
+    std::string order_dir;
+    int quantity;
+    double price;
+    Order_stats(std::string date,std::string order_dir,int quantity,double price){
+        date=date;
+        order_dir=order_dir;
+        quantity=quantity;
+        price=price;
+    }
+};
+
+class Output{
+    public:
+    double final_profit_loss;
+    std::vector <Cash_flow> daily;
+    std::vector <Order_stats> order;
+    Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order){
+        final_profit_loss=final_profit_loss;
+        daily=daily;
+        order=order;
+    }
+};
+
