@@ -46,7 +46,6 @@ std::vector<StockData> readStockPrice(const std::string& filename)
             std::getline(iss, value, ',') && (std::stringstream(value) >> row.no_of_trades)) {
             stock_data.push_back(row);
         }
-
     }
      file.close();
      return stock_data;
