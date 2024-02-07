@@ -75,9 +75,24 @@ void print_stock_data(std::vector<StockData> stock_data)
 
 int main(int argc, char* argv[])
 {
-
+    std::cout<<"c++ output"<<std::endl; 
+    for (int i = 0; i < argc; ++i) {
+        std::cout << argv[i] << std::endl;
+    }
+    Input input; 
+    std::string strategy = argv[1]; 
+    if(strategy == "BASIC")
+    {
+        input.strategy = strategy; 
+        input.symbol = argv[2]; 
+        input.n  = (int)argv[3]; 
+        input.x = (int)argv[4];
+        input.start_date = argv[5];
+        input.end_date = argv[6];
+        
+    }
     std::vector<StockData> v = readStockPrice("data.csv"); 
 
-    print_stock_data(v); 
+    // print_stock_data(v); 
 }
 
