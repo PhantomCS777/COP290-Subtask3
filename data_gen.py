@@ -2,7 +2,7 @@ from datetime import date
 from datetime import datetime
 # from datetime import strptime
 import time
-from dateutil.relativedelta import relativedelta
+# from dateutil.relativedelta import relativedelta
 from jugaad_data.nse import stock_df
 from jugaad_data.nse import stock_csv
 import os
