@@ -1,6 +1,8 @@
 #include <bits/stdc++.h> 
 #include "src/stock_data.h"
 #include "src/basic.h"
+#include "src/DMA.h"
+#include "src/DMA++.h"
 
 
 
