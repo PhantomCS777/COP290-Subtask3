@@ -83,3 +83,5 @@ class Output{
     }
 };
 
+std::string reverse(std::string str);
+std::string replace_hyphens(std::string str);
