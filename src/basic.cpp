@@ -31,7 +31,7 @@ Output basic(std::vector <StockData> stockdata,Input inp)
     long long final_profit_loss=0;
     int cur_price;
     for(int i=total_data_size-2;i>=0;i--){
-        std::string modified_date = reverse(stockdata[i].date);
+        std::string modified_date = replace_hyphens(stockdata[i].date);
         if(stockdata[i].close==stockdata[i+1].close){
             cur_trend=0;
             trend_days=0;
@@ -88,12 +88,7 @@ Output basic(std::vector <StockData> stockdata,Input inp)
             }
         }
     }
-    if(curposition>0){
-        final_profit_loss+=(curposition*cur_price);
-    }
-    else{
-        final_profit_loss-=(curposition*cur_price);
-    }
+    final_profit_loss+=((curposition)*(cur_price));
     Output out(final_profit_loss,daily,order);
     return out;
 }
