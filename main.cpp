@@ -1,6 +1,6 @@
 #include <bits/stdc++.h> 
 #include "src/stock_data.h"
-#include "src/basic.cpp"
+#include "src/basic.h"
 
 
 
