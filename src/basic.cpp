@@ -1,14 +1,16 @@
 #include "basic.h"
 
 
-Output basic(std::vector <StockData> stockdata,Input inp)
+Output basic(std::vector <StockData> &stockdata,Input inp)
 {
+    std::cout<<"entering"<<std::endl; 
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
     std::string start_date = inp.start_date;
     std::string end_date = inp.end_date;
     start_date = reverse(start_date);
     end_date = reverse(end_date);
+    std::cout<<start_date<<" "<<end_date<<std::endl; 
     int limit=inp.x;
     int n=inp.n;
     int curposition=0;
@@ -19,6 +21,7 @@ Output basic(std::vector <StockData> stockdata,Input inp)
     int cur_price;
     for(int i=total_data_size-2;i>=0;i--){
         std::string modified_date = replace_hyphens(stockdata[i].date);
+        std::cout<<modified_date<<std::endl; 
         if(stockdata[i].close==stockdata[i+1].close){
             cur_trend=0;
             trend_days=0;
@@ -46,6 +49,7 @@ Output basic(std::vector <StockData> stockdata,Input inp)
             }
         }
         if(modified_date>=start_date&&modified_date<=end_date){
+            
             cur_price=stockdata[i].close;
             if(trend_days>=n){
                 if(cur_trend==-1&&(curposition>(-1*limit))){
