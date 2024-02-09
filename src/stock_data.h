@@ -89,5 +89,5 @@ std::string reverse(std::string str);
 std::string replace_hyphens(std::string str);
 
 
-void buy_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss);
-void sell_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss);
+void buy_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss,std::string modifies_date);
+void sell_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss,std::string modifies_date);

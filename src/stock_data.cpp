@@ -27,7 +27,7 @@ void buy_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_s
     return;
 }
 
-void sell_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_stats> &order, double &profit_loss,std::string modified_date)
+void sell_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_stats> &order, double & profit_loss,std::string modified_date)
 {
     Cash_flow a(modified_date,profit_loss+row.close);
     daily.emplace_back(a);
