@@ -39,5 +39,22 @@ void sell_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_
 
 void Output::write()
 {
-    
+    std::string file_name = "daily_cashflow.csv";
+    std::ofstream file(file_name);
+    file<<"Date,"<<"Cashflow"<<std::endl;
+    for(auto ele:this->daily){
+        file<<ele.date<<","<<ele.transaction<<std::endl;
+    }
+    file.close();
+    file_name= "order_statistics.csv";
+    std::ofstream file(file_name);
+    file<<"Date,Order_dir,Quantity,Price"<<std::endl;
+    for(auto ele:this->order){
+        file<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+    }
+    file.close();
+    file_name="final_pnl.txt";
+    std::ofstream file(file_name);
+    file<<this->final_profit_loss;
+    file.close();
 }

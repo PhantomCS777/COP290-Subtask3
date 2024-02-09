@@ -111,7 +111,13 @@ int main(int argc, char* argv[])
         input.p = std::stod(argv[5]);
         input.start_date = argv[6];
         input.end_date = argv[7];
-
+        Output a= DMA(v,input);
+        std::cout<<"c++ output"<<std::endl; 
+        std::cout<<a.final_profit_loss<<std::endl;
+        std::cout<<a.daily.size()<<std::endl;
+        for(auto ele:a.daily){
+            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
+        }
     }
      else if(strategy == "DMA++")
     {
