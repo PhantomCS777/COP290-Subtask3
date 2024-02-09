@@ -53,8 +53,8 @@ class Cash_flow{
     double transaction;
 
     Cash_flow(std::string date,double transaction){
-        date=date;
-        transaction=transaction;
+        this->date=date;
+        this->transaction=transaction;
     }
 };
 
@@ -65,10 +65,10 @@ class Order_stats{
     int quantity;
     double price;
     Order_stats(std::string date,std::string order_dir,int quantity,double price){
-        date=date;
-        order_dir=order_dir;
-        quantity=quantity;
-        price=price;
+        this->date=date;
+        this->order_dir=order_dir;
+        this->quantity=quantity;
+        this->price=price;
     }
 };
 
@@ -78,11 +78,16 @@ class Output{
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
     Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order){
-        final_profit_loss=final_profit_loss;
-        daily=daily;
-        order=order;
+        this->final_profit_loss=final_profit_loss;
+        this->daily=daily;
+        this->order=order;
     }
+    void write();
 };
 
 std::string reverse(std::string str);
 std::string replace_hyphens(std::string str);
+
+
+void buy_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss);
+void sell_stock(StockData,std::vector <Cash_flow> & daily,std::vector <Order_stats> & order,double & profit_loss);

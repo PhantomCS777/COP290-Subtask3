@@ -1,24 +1,22 @@
 #include "basic.h"
-
+using namespace std;
 
 Output basic(std::vector <StockData> &stockdata,Input inp)
 {
-    std::cout<<"entering"<<std::endl; 
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
     std::string start_date = inp.start_date;
     std::string end_date = inp.end_date;
     start_date = reverse(start_date);
     end_date = reverse(end_date);
-    std::cout<<start_date<<" "<<end_date<<std::endl; 
-    int limit=inp.x;
-    int n=inp.n;
-    int curposition=0;
-    int cur_trend=0;
-    int trend_days=0;
+    int limit = inp.x;
+    int n = inp.n;
+    int curposition = 0;
+    int cur_trend = 0;
+    int trend_days = 0;
     int total_data_size = stockdata.size();
-    long long final_profit_loss=0;
-    int cur_price;
+    double final_profit_loss = 0;
+    double cur_price;
     for(int i=total_data_size-2;i>=0;i--){
         std::string modified_date = replace_hyphens(stockdata[i].date);
         std::cout<<modified_date<<std::endl; 
@@ -49,12 +47,11 @@ Output basic(std::vector <StockData> &stockdata,Input inp)
             }
         }
         if(modified_date>=start_date&&modified_date<=end_date){
-            
             cur_price=stockdata[i].close;
             if(trend_days>=n){
                 if(cur_trend==-1&&(curposition>(-1*limit))){
                     curposition--;
-                    Cash_flow a(modified_date,stockdata[i].close);
+                    Cash_flow a(modified_date,final_profit_loss+stockdata[i].close);
                     daily.emplace_back(a);
                     Order_stats b(modified_date,"SELL",1,stockdata[i].close);
                     order.emplace_back(b);
@@ -62,19 +59,19 @@ Output basic(std::vector <StockData> &stockdata,Input inp)
                 }
                 else if(cur_trend==1 && (curposition<limit)){
                     curposition++;
-                    Cash_flow a(modified_date,-1*stockdata[i].close);
+                    Cash_flow a(modified_date,final_profit_loss-1*stockdata[i].close);
                     daily.emplace_back(a);
                     Order_stats b(modified_date,"BUY",1,stockdata[i].close);
                     order.emplace_back(b);
                     final_profit_loss-=stockdata[i].close;
                 }
                 else{
-                    Cash_flow a(modified_date,0);
+                    Cash_flow a(modified_date,final_profit_loss);
                     daily.emplace_back(a);
                 }
             }
             else{
-                Cash_flow a(modified_date,0);
+                Cash_flow a(modified_date,final_profit_loss);
                 daily.emplace_back(a);
             }
         }

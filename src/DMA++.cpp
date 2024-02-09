@@ -52,7 +52,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                 double ER = stockData[i].close-stockData[i+n].close;
                 if(sum_abs_diff==0) continue;
                 ER = ER/sum_abs_diff;
-                double num = (2*ER/(1+c2))-1;
+                double num = (2*ER/(1+c2)) - 1;
                 double den = (2*ER/(1+c2)) +1;
                 double done = num/den;
                 done = done - sf;
@@ -141,7 +141,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     }
                 }
             }
-
+            a.transaction = profit_loss;
             daily.emplace_back(a);
             if(b.quantity!=0){
                 order.emplace_back(b);

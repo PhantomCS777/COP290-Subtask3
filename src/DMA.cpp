@@ -41,7 +41,7 @@ Output DMA(std::vector <StockData> stockdata,Input inp)
             last_price=stockdata[i].close;
             if(cur_price >= dma+(p*sd) && position < limit){
                 position++;
-                Cash_flow a(cur_date,-1*cur_price);
+                Cash_flow a(cur_date,final_profit_loss-1*cur_price);
                 daily.emplace_back(a);
                 Order_stats b(cur_date,"BUY",1,cur_price);
                 order.emplace_back(b);
@@ -49,14 +49,14 @@ Output DMA(std::vector <StockData> stockdata,Input inp)
             }
             else if(cur_price <= dma-(p*sd) && position>(-1*limit)){
                 position--;
-                Cash_flow a(cur_date,cur_price);
+                Cash_flow a(cur_date,final_profit_loss+cur_price);
                 daily.emplace_back(a);
                 Order_stats b(cur_date,"SELL",1,cur_price);
                 order.emplace_back(b);
                 final_profit_loss+=cur_price;
             }
             else{
-                Cash_flow a(cur_date,0);
+                Cash_flow a(cur_date,final_profit_loss);
                 daily.emplace_back(a);
             }
         }
