@@ -71,57 +71,19 @@ def write_function(start_date,end_date,symbol):
     
 def strategy(args):
     strat = args[1] 
-    start_date = ""
-    end_date = ""
-    n = 0 
-    if strat == "BASIC":
-        symbol = args[2] 
-        n = int(args[3])
-        start_date = args[5]
-        end_date = args[6]    
+    symbol = args[2] 
+    start_date = args[14]
+    end_date = args[15]
+    n = int(args[3])
+    
+    
         
+    
+    if strat == "LINEAR_REGRESSION": 
       
-    
-    elif strat == "DMA": 
-        symbol = args[2] 
-        n = int(args[3])
-        start_date = args[6]
-        end_date = args[7]  
+        train_start_date = args[12]
+        train_end_date = args[13] 
         
-        
-        
-    elif strat == "DMA++": 
-        symbol = args[2] 
-        n = int(args[5]) 
-        start_date = args[9]
-        end_date = args[10]  
-
-    elif strat == "MACD": 
-        symbol = args[2] 
-        start_date = args[4]
-        end_date = args[5] 
-        
-    
-    elif strat == "RSI": 
-        symbol = args[2] 
-        n = int(args[4])
-        start_date = args[7]
-        end_date = args[8] 
-        
-    
-    elif strat == "ADX": 
-        symbol = args[2] 
-        n = int(args[4])
-        start_date = args[6]
-        end_date = args[7] 
-        
-    
-    elif strat == "LINEAR_REGRESSION": 
-        symbol = args[2] 
-        train_start_date = args[5]
-        train_end_date = args[6] 
-        start_date = args[7]
-        end_date = args[8] 
         
         print("why h",train_start_date)
         if compare_dates(train_start_date,start_date):
@@ -131,24 +93,14 @@ def strategy(args):
         
         
         
-    elif strat == "BEST_OF_ALL": 
-        symbol = args[2] 
-        start_date = args[3]
-        end_date = args[4] 
+
         
-        
-    elif strat == "PAIRS": 
-        symbol = args[2] 
-        start_date = args[7]
-        end_date = args[8] 
-        
-    
-    print("ok ",start_date)
+    #pairs is remaining 
+
     start_date = get_past_date(start_date,7*n/5 + 7)
-    print("ok 1 ",start_date)
-    print("ok3 ",end_date)
+
     end_date = get_future_date(end_date,7)
-    print("ok4 ",end_date)
+
     
     return (symbol,start_date,end_date)
         

@@ -47,4 +47,20 @@ run:
 clean:
 	rm -f $(CPP_BINARY) $(OBJECTS)
 
+
+n = 0 
+p = 2 
+max_hold_days = 28
+c1 = 2 
+c2 = 0.2 
+oversold_threshold = 30 
+overbought_threshold = 70 
+adx_threshold = 25 
+train_start_date = "01/01/2024"
+train_end_date = "31/01/2024"
+symbol1 = "SBIN"
+symbol2 = "ADANIENT"
+threshold=0
+stop_loss_threshold=0
+
 .PHONY: all run clean
