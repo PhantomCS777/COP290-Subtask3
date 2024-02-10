@@ -82,6 +82,10 @@ class Output{
         this->daily=daily;
         this->order=order;
     }
+    Output()
+    {
+        
+    }
     void write();
 };
 
