@@ -5,7 +5,6 @@ using namespace std;
 
 Output DMA(std::vector <StockData> stockdata,Input inp)
 {
-    cout<<"entering"<<endl;
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
     double dma=0;
@@ -29,7 +28,6 @@ Output DMA(std::vector <StockData> stockdata,Input inp)
     //till this point the sum of last n-1 days values has been caulculated.
     //also sum of squares of prices for last n-1 have been calculated
     for(int i=(total_data_size-n);i>=0;i--){
-        cout<<"hello"<<endl;
         sum+=stockdata[i].close;
         square_sum+=(stockdata[i].close)*(stockdata[i].close);
         dma=sum/n;
@@ -40,7 +38,6 @@ Output DMA(std::vector <StockData> stockdata,Input inp)
         double cur_price=stockdata[i].close;
         std::string cur_date=replace_hyphens(stockdata[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
-            std::cout<<cur_date<<" date "<<std::endl;
             last_price=stockdata[i].close;
             if(cur_price >= dma+(p*sd) && position < limit){
                 position++;

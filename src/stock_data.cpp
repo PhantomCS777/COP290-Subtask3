@@ -47,14 +47,14 @@ void Output::write()
     }
     file.close();
     file_name= "order_statistics.csv";
-    std::ofstream file(file_name);
-    file<<"Date,Order_dir,Quantity,Price"<<std::endl;
+    std::ofstream file1(file_name);
+    file1<<"Date,Order_dir,Quantity,Price"<<std::endl;
     for(auto ele:this->order){
-        file<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+        file1<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
     }
-    file.close();
+    file1.close();
     file_name="final_pnl.txt";
-    std::ofstream file(file_name);
-    file<<this->final_profit_loss;
-    file.close();
+    std::ofstream file2(file_name);
+    file2<<this->final_profit_loss;
+    file2.close();
 }
