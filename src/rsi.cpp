@@ -29,11 +29,13 @@ Output rsi(std::vector <StockData> stockData, Input inp){
     double cur_price;
     double sum_price_gain=0;
     double sum_loss = 0;
+    std::cout<<" n "<<n<<std::endl;
     for(int i=total_data_size-2;i>=total_data_size-n;i--){
         sum_price_gain += gain(stockData[i].close,stockData[i+1].close);
         sum_loss += loss(stockData[i].close,stockData[i+1].close);       
     }
-
+    std::cout<<"before doing"<<std::endl;
+    std::cout<<sum_price_gain<<" "<<sum_loss<<std::endl;
     for(int i=total_data_size-n-1;i>=0;i--)
     {
         cur_price=stockData[i].close;
@@ -41,8 +43,11 @@ Output rsi(std::vector <StockData> stockData, Input inp){
         sum_loss += loss(stockData[i].close,stockData[i+1].close);
         std::string cur_date = replace_hyphens(stockData[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
-            double rs=sum_price_gain/sum_loss;
-            double rsi=100.0-(100.0/(1.0+rs));
+            double rsi;
+            if(sum_loss!=0)
+            {double rs=sum_price_gain/sum_loss;
+            rsi=100.0-(100.0/(1.0+rs));}
+            else rsi=100.0;
             if(rsi<=inp.oversold_threshold&&position<limit){
                 position++;
                 buy_stock(stockData[i],daily,order,profit_loss,cur_date);
@@ -58,9 +63,11 @@ Output rsi(std::vector <StockData> stockData, Input inp){
         }
         sum_price_gain-=gain(stockData[i+n-1].close,stockData[i+n].close);
         sum_loss-= loss(stockData[i+n-1].close,stockData[i+n].close);
+        std::cout<<sum_price_gain<<" "<<sum_loss<<std::endl;
     }
     profit_loss+=position*cur_price;//final squaring off
     Output out(profit_loss,daily,order);
+    std::cout<<"done"<<std::endl;
     out.write();
     return out;
 }

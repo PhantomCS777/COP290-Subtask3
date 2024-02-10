@@ -246,7 +246,7 @@ Output linear_regression(std::vector <StockData>&stockdata,Input&input)
                 buy_stock(stockdata[i],daily,order,profit_loss,current_date);
                 position++;
             }
-            else if(-(pred_price-stockdata[i].close)*100 >= input.p*stockdata[i].close && position > input.x)
+            else if(((-(pred_price-stockdata[i].close)*100) >= input.p*stockdata[i].close) && (position > -input.x))
             {
                 sell_stock(stockdata[i],daily,order,profit_loss,current_date); 
                 position--;

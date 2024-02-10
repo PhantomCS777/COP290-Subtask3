@@ -22,6 +22,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
     int p = inp.p;
     double sf=0.5;
     double ama;
+    int trading_day=0;
     double profit_loss=0;
     std::queue <int> sell_day;
     std::queue <int> buy_day;
@@ -47,8 +48,9 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
         sum_abs_diff+=mod_sub(stockData[i].close,stockData[i+1].close);
         std::string cur_date = replace_hyphens(stockData[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
+            trading_day++;
             last_price=cur_price;
-            if(cur_date!=start_date){
+            if(trading_day!=1){
                 double ER = stockData[i].close-stockData[i+n].close;
                 if(sum_abs_diff==0) continue;
                 ER = ER/sum_abs_diff;
