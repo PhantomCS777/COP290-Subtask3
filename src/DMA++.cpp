@@ -31,7 +31,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
     double sum_abs_diff = 0;
     double last_price=0;
     for(int i=total_data_size-2;i>=total_data_size-n;i--){
-        sum_abs_diff=mod_sub(stockData[i].close,stockData[i+1].close);       
+        sum_abs_diff+=mod_sub(stockData[i].close,stockData[i+1].close);       
     }
     // double ER = stockData[i].close-stockData[i+n].close;
     //         if(sum_abs_diff==0) continue;

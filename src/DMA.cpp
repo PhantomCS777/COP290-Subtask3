@@ -1,6 +1,5 @@
 #include "DMA.h"
 
-using namespace std;
 
 
 Output DMA(std::vector <StockData> stockdata,Input inp)

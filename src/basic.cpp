@@ -1,5 +1,4 @@
 #include "basic.h"
-using namespace std;
 
 Output basic(std::vector <StockData> &stockdata,Input inp)
 {
