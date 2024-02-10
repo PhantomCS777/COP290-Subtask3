@@ -3,8 +3,8 @@
 #include "src/basic.h"
 #include "src/DMA.h"
 #include "src/DMA++.h"
-
-
+#include "src/macd.h"
+#include "src/linear_regression.h"
 
 
 
@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
     std::vector<StockData> v = readStockPrice("data.csv"); 
     Input input; 
     std::string strategy = argv[1]; 
+    Output a; 
     if(strategy == "BASIC")
     {
         input.strategy = strategy; 
@@ -93,13 +94,8 @@ int main(int argc, char* argv[])
         input.x = std::stoi(argv[4]);
         input.start_date = argv[5];
         input.end_date = argv[6];
-        Output a= basic(v,input);
-        std::cout<<"c++ output"<<std::endl; 
-        std::cout<<a.final_profit_loss<<std::endl;
-        std::cout<<a.daily.size()<<std::endl;
-        for(auto ele:a.daily){
-            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
-        }
+         a= basic(v,input);
+       
         
     }
     else if(strategy == "DMA")
@@ -111,6 +107,8 @@ int main(int argc, char* argv[])
         input.p = std::stod(argv[5]);
         input.start_date = argv[6];
         input.end_date = argv[7];
+         a= DMA(v,input);
+        
         Output a= DMA(v,input);
         std::cout<<"c++ output"<<std::endl; 
         std::cout<<a.final_profit_loss<<std::endl;
@@ -142,6 +140,9 @@ int main(int argc, char* argv[])
        
         input.start_date = argv[4];
         input.end_date = argv[5];
+        
+         a= macd(v,input);
+       
 
     }
 
@@ -178,6 +179,10 @@ int main(int argc, char* argv[])
         input.train_end_date = argv[6];
         input.start_date = argv[7];
         input.end_date = argv[8];
+        std::cout<<"entring linear reg"<<std::endl; 
+        a = linear_regression(v,input);
+        std::cout<<"done li re"<<std::endl; 
+
 
     }
      else if(strategy == "BEST_OF_ALL")
@@ -209,7 +214,14 @@ int main(int argc, char* argv[])
 
     }
 
-   
+   std::cout<<"c++ output"<<std::endl; 
+        std::cout<<a.final_profit_loss<<std::endl;
+        std::cout<<a.daily.size()<<std::endl;
+        for(auto ele:a.daily){
+            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
+        }
+
+    return 0 ; 
 
     // print_stock_data(v); 
 }
