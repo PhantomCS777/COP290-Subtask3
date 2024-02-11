@@ -11,12 +11,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
     end_date = reverse(end_date);
     int limit = inp.x;
     int n = inp.n;
-    // std::cout<<" limit "<<limit<<std::endl;
-    // std::cout<<" n "<<n<<std::endl;
     double adx_threshold = inp.adx_threshold;
-    // std::cout<<" adx_threshold "<<adx_threshold<<std::endl;
-    // std::cout<<" start date"<<start_date<<std::endl;
-    // std::cout<<" end date"<<end_date<<std::endl;
     int total_data_size=stockData.size();
     double last_price=0;
     int trading_day=0;
@@ -46,6 +41,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
             else{
                 atr=alpha*(tr-atr)+atr;
             }
+            std::cout<<"atr "<<atr<<std::endl;
             double ratio_plus=dm_plus/atr;
             double ratio_minus=dm_minus/atr;
             if(trading_day==1){

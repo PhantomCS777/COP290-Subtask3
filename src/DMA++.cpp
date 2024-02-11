@@ -52,7 +52,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
             last_price=cur_price;
             if(trading_day!=1){
                 double ER = stockData[i].close-stockData[i+n].close;
-                if(sum_abs_diff==0) continue;
+                if(std::fabs(sum_abs_diff)<0.000001) continue;
                 ER = ER/sum_abs_diff;
                 double num = (2*ER/(1+c2)) - 1;
                 double den = (2*ER/(1+c2)) +1;
