@@ -18,7 +18,7 @@ Output basic(std::vector <StockData> stockdata,Input inp)
     double cur_price;
     for(int i=total_data_size-2;i>=0;i--){
         std::string modified_date = replace_hyphens(stockdata[i].date);
-        std::cout<<modified_date<<std::endl; 
+        
         if(stockdata[i].close==stockdata[i+1].close){
             cur_trend=0;
             trend_days=0;

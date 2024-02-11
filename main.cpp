@@ -1,4 +1,5 @@
 #include <bits/stdc++.h> 
+#include <omp.h>
 #include "src/stock_data.h"
 #include "src/basic.h"
 #include "src/DMA.h"
@@ -125,13 +126,6 @@ int main(int argc, char* argv[])
     }
     else if(strategy == "DMA")
     {
-        // input.strategy = strategy; 
-        // input.symbol = argv[2]; 
-        // input.n  = std::stoi(argv[3]); 
-        // input.x = std::stoi(argv[4]);
-        // input.p = std::stod(argv[5]);
-        // input.start_date = argv[6];
-        // input.end_date = argv[7];
          a= DMA(v,input);
         
         Output a= DMA(v,input);
@@ -158,13 +152,6 @@ int main(int argc, char* argv[])
     }
       else if(strategy == "MACD")
     {
-        // input.strategy = strategy; 
-        // input.symbol = argv[2]; 
-      
-        // input.x = std::stoi(argv[3]);
-       
-        // input.start_date = argv[4];
-        // input.end_date = argv[5];
         
          a= macd(v,input);
        
@@ -196,14 +183,7 @@ int main(int argc, char* argv[])
     }
      else if(strategy == "LINEAR_REGRESSION")
     {
-        // input.strategy = strategy; 
-        // input.symbol = argv[2]; 
-        // input.p  = std::stoi(argv[4]); 
-        // input.x = std::stoi(argv[3]);
-        // input.train_start_date = (argv[5]); 
-        // input.train_end_date = argv[6];
-        // input.start_date = argv[7];
-        // input.end_date = argv[8];
+        
         std::cout<<"entring linear reg"<<std::endl; 
         a = linear_regression(v,input);
         std::cout<<"done li re"<<std::endl; 
@@ -216,8 +196,73 @@ int main(int argc, char* argv[])
         // input.symbol = argv[2]; 
         // input.start_date = argv[3];
         // input.end_date = argv[4];
+        Input input_basic = input; 
+        input_basic.n= 7; 
+        Input input_DMA = input; 
+        input_DMA.n = 50; 
+        Input input_DMApp = input; 
+        Input input_RSI = input; 
+        Input input_ADX = input; 
+        input_ADX.n=input_DMApp.n=input_RSI.n = 14; 
+        input_DMApp.p = 5 ; 
+        Input input_LR = input; 
+        input_LR.train_start_date = input.start_date.substr(0,6) + std::to_string(std::stoi(input.start_date.substr(6,4))-1);
+        input_LR.train_end_date = input.end_date.substr(0,6) + std::to_string(std::stoi(input.end_date.substr(6,4))-1);
+       
+        std::vector<Output> outputs(5);
 
+        Output b1,b2,b3,b4,b5; 
+      
+        #pragma omp parallel for num_threads(5)
+        
+        for(int id = 0 ; id < 5; id++){
+        
+        switch (id)
+        {
+        case 0:
+            std::cout<<" thread is "<<id<<std::endl; 
+            b1 = basic(v,input_basic);
+            std::cout<<"thisn b1 : "<<b1.final_profit_loss<<std::endl;
+            break;
+        case 1:
+            std::cout<<" thread is "<<id<<std::endl; 
+            b2 = DMA(v,input_DMA);
+            break;
+        case 2:
+            std::cout<<" thread is "<<id<<std::endl; 
+            b3 = modi_dma(v,input_DMApp);
+            break; 
+        case 3:
+            std::cout<<" thread is "<<id+10<<std::endl; 
+            b4 = macd(v,input);
+            std::cout<<"the fac"<<std::endl; 
+            break; 
+        case 4:
+            std::cout<<"oh no "<<std::endl; 
+            std::cout<<" thread is "<<id<<std::endl; 
+            b5 = linear_regression(v,input_LR); 
+            break;
+        default:
+            break;
+        }
 
+        
+    }
+    outputs[0] = b1;
+    outputs[1] = b2; 
+    outputs[2]=b3;
+    outputs[3]=b4;
+    outputs[4] = b5; 
+    Output best_of_all = outputs[0]; 
+    for(int h = 0 ; h < 5; h++)
+    {
+        std::cout<<h<<" "<<outputs[h].final_profit_loss<<std::endl; 
+        if (best_of_all.final_profit_loss < outputs[h].final_profit_loss)
+        {
+            best_of_all = outputs[h];
+        }
+    }
+    a = best_of_all ;
     }
      else if(strategy == "PAIRS")
     {

@@ -2,7 +2,7 @@
 
 
 
-Output macd(std::vector <StockData>& stockdata,Input input)
+Output macd(std::vector <StockData> stockdata,Input input)
 {
   
     std::vector <Cash_flow> daily;
@@ -20,7 +20,7 @@ Output macd(std::vector <StockData>& stockdata,Input input)
     double last_price = 0 ; 
     while(start_date > replace_hyphens(stockdata[cur_date_idx].date))
     {
-          std::cout<<replace_hyphens(stockdata[cur_date_idx].date)<<std::endl; 
+          
         cur_date_idx--;
     }
     current_date = replace_hyphens(stockdata[cur_date_idx].date); 
