@@ -37,7 +37,7 @@ void sell_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_
     return;
 }
 
-void Output::write()
+void Output::write(bool is_pair)
 {
     std::string file_name = "daily_cashflow.csv";
     std::ofstream file(file_name);
@@ -46,15 +46,38 @@ void Output::write()
         file<<ele.date<<","<<ele.transaction<<std::endl;
     }
     file.close();
-    file_name= "order_statistics.csv";
-    std::ofstream file1(file_name);
-    file1<<"Date,Order_dir,Quantity,Price"<<std::endl;
-    for(auto ele:this->order){
-        file1<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
-    }
-    file1.close();
     file_name="final_pnl.txt";
     std::ofstream file2(file_name);
     file2<<this->final_profit_loss;
     file2.close();
+    if(!is_pair)
+    {   
+        file_name= "order_statistics.csv";
+        std::ofstream file1(file_name);
+        file1<<"Date,Order_dir,Quantity,Price"<<std::endl;
+        for(auto ele:this->order1){
+            file1<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+        }
+        file1.close();
+    }
+    else{
+        file_name = "order_statistics_1.csv";
+        std::ofstream file3(file_name);
+        file3<<"Date,Order_dir,Quantity,Price"<<std::endl;
+        for(auto ele:this->order1){
+            file3<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+        }
+        file3.close();
+        
+        
+        
+        file_name = "order_statistics2.csv";
+        std::ofstream file4(file_name);
+        file4<<"Date,Order_dir,Quantity,Price"<<std::endl;
+        for(auto ele:this->order2){
+            file3<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+        }
+        file4.close();
+    }
+    
 }

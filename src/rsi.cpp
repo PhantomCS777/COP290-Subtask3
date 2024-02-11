@@ -73,6 +73,6 @@ Output rsi(std::vector <StockData> stockData, Input inp){
     profit_loss+=position*cur_price;//final squaring off
     Output out(profit_loss,daily,order);
     // std::cout<<"done"<<std::endl;
-    out.write();
+    // out.write();
     return out;
 }

@@ -76,17 +76,24 @@ class Output{
     public:
     double final_profit_loss;
     std::vector <Cash_flow> daily;
-    std::vector <Order_stats> order;
-    Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order){
+    std::vector <Order_stats> order1;
+    std::vector <Order_stats> order2;
+    Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order1){
         this->final_profit_loss=final_profit_loss;
         this->daily=daily;
-        this->order=order;
+        this->order1=order1;
+    }
+    Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order1,std::vector <Order_stats> order2){
+        this->final_profit_loss=final_profit_loss;
+        this->daily=daily;
+        this->order1=order1;
+        this->order2=order2;
     }
     Output()
     {
         
     }
-    void write();
+    void write(bool is_pair);
 };
 
 std::string reverse(std::string str);

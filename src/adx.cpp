@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 
 Output adx(std::vector <StockData> stockData,Input inp){
+    std::cout<<"here it all started"<<std::endl;
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
     std::string start_date = inp.start_date;
@@ -10,7 +11,12 @@ Output adx(std::vector <StockData> stockData,Input inp){
     end_date = reverse(end_date);
     int limit = inp.x;
     int n = inp.n;
+    // std::cout<<" limit "<<limit<<std::endl;
+    // std::cout<<" n "<<n<<std::endl;
     double adx_threshold = inp.adx_threshold;
+    // std::cout<<" adx_threshold "<<adx_threshold<<std::endl;
+    // std::cout<<" start date"<<start_date<<std::endl;
+    // std::cout<<" end date"<<end_date<<std::endl;
     int total_data_size=stockData.size();
     double last_price=0;
     int trading_day=0;
@@ -22,16 +28,18 @@ Output adx(std::vector <StockData> stockData,Input inp){
     double adx;
     double profit_loss=0;
     int position=0;
+    std::cout<<"total_data_size "<<total_data_size<<std::endl;
     for(int i=(total_data_size-1);i>=0;i--){
         std::string cur_date=replace_hyphens(stockData[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
+            // std::cout<<"am i here"<<std::endl;
+            // std::cout<<" i "<<i<<std::endl;
             trading_day++;
             last_price = stockData[i].close;
             double dm_plus = std::max<double>(0,stockData[i].high-stockData[i+1].high); 
             double tr= std::max<double> (stockData[i].high-stockData[i].low,stockData[i].high-stockData[i].prev_close);
             tr = std::max<double> (tr,stockData[i].low-stockData[i].prev_close);
             double dm_minus = std::max<double> (0,stockData[i].low-stockData[i+1].low);
-            
             if(trading_day==1){
                 atr = tr;    
             }
@@ -59,6 +67,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
             else{
                 adx=alpha*(dx-adx)+adx;
             }
+            std::cout<<" cur_date "<<cur_date<<" adx "<<adx<<std::endl;
             if(adx>=adx_threshold&&position<limit){
                 position++;
                 buy_stock(stockData[i],daily,order,profit_loss,cur_date);
@@ -75,5 +84,6 @@ Output adx(std::vector <StockData> stockData,Input inp){
     }
     profit_loss+=position*last_price;
     Output out(profit_loss,daily,order);
+    out.write(false);
     return out;
 }
