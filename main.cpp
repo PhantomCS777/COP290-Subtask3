@@ -8,7 +8,7 @@
 #include "src/linear_regression.h"
 #include "src/rsi.h" 
 #include "src/adx.h"
-
+#include "src/simple_pairs.h"
 
 
 std::vector<StockData> readStockPrice(const std::string& filename)
@@ -263,10 +263,11 @@ int main(int argc, char* argv[])
     outputs[4] = b5; 
     outputs[5] = b6; 
     outputs[6] = b7; 
+    std::vector<std::string> stratss = {" BASIC "," DMA "," DMA++ "," MACD "," LINEAR_REGRESSION "," RSI "," ADX "};
     Output best_of_all = outputs[0]; 
     for(int h = 0 ; h < 7; h++)
     {
-        std::cout<<h<<" "<<outputs[h].final_profit_loss<<std::endl; 
+        std::cout<<h<<stratss[h]<<outputs[h].final_profit_loss<<std::endl; 
         if (best_of_all.final_profit_loss < outputs[h].final_profit_loss)
         {
             best_of_all = outputs[h];
@@ -293,7 +294,7 @@ int main(int argc, char* argv[])
         //     input.end_date = argv[9];
         // }
         std::vector<StockData> v2 = readStockPrice("data1.csv"); 
-        
+        a = simple_pairs(v,v2,input); 
 
     }
 
