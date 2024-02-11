@@ -6,7 +6,8 @@
 #include "src/DMA++.h"
 #include "src/macd.h"
 #include "src/linear_regression.h"
-
+#include "src/rsi.h" 
+#include "src/adx.h"
 
 
 
@@ -208,14 +209,14 @@ int main(int argc, char* argv[])
         Input input_LR = input; 
         input_LR.train_start_date = input.start_date.substr(0,6) + std::to_string(std::stoi(input.start_date.substr(6,4))-1);
         input_LR.train_end_date = input.end_date.substr(0,6) + std::to_string(std::stoi(input.end_date.substr(6,4))-1);
-       
-        std::vector<Output> outputs(5);
 
-        Output b1,b2,b3,b4,b5; 
+        std::vector<Output> outputs(7);
+
+        Output b1,b2,b3,b4,b5,b6,b7;
       
-        #pragma omp parallel for num_threads(5)
+        #pragma omp parallel for num_threads(7)
         
-        for(int id = 0 ; id < 5; id++){
+        for(int id = 0 ; id < 7; id++){
         
         switch (id)
         {
@@ -242,6 +243,13 @@ int main(int argc, char* argv[])
             std::cout<<" thread is "<<id<<std::endl; 
             b5 = linear_regression(v,input_LR); 
             break;
+        case 5:
+            std::cout<<" thread is "<<id<<std::endl; 
+            b6 = rsi(v,input_RSI);
+            break;
+        case 6:
+            b7 = adx(v,input_ADX);
+            break;
         default:
             break;
         }
@@ -253,8 +261,10 @@ int main(int argc, char* argv[])
     outputs[2]=b3;
     outputs[3]=b4;
     outputs[4] = b5; 
+    outputs[5] = b6; 
+    outputs[6] = b7; 
     Output best_of_all = outputs[0]; 
-    for(int h = 0 ; h < 5; h++)
+    for(int h = 0 ; h < 7; h++)
     {
         std::cout<<h<<" "<<outputs[h].final_profit_loss<<std::endl; 
         if (best_of_all.final_profit_loss < outputs[h].final_profit_loss)
@@ -282,6 +292,8 @@ int main(int argc, char* argv[])
         //     input.start_date = argv[8];
         //     input.end_date = argv[9];
         // }
+        std::vector<StockData> v2 = readStockPrice("data1.csv"); 
+        
 
     }
 

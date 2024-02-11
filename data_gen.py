@@ -58,16 +58,26 @@ def compare_dates(date1, date2):
     else:
         return False
     
-def write_function(start_date,end_date,symbol):
+def write_function(start_date,end_date,symbol,symbol1="a",symbol2="a"):
     start_date = datetime.strptime(start_date, date_format).date()
 
     end_date = datetime.strptime(end_date, date_format).date()
-    
-    df = stock_df(symbol=symbol, from_date=start_date,to_date=end_date, series="EQ")
-    df=df.drop(["SERIES","SYMBOL"],axis=1)
-    print(df)
-    file_name_csv="resources/data"+".csv"
-    df.to_csv(file_name_csv,index=False)
+    if(symbol1 == "a"):
+        df = stock_df(symbol=symbol, from_date=start_date,to_date=end_date, series="EQ")
+        df=df.drop(["SERIES","SYMBOL"],axis=1)
+        print(df)
+        file_name_csv="resources/data"+".csv"
+        df.to_csv(file_name_csv,index=False)
+    else:
+        df = stock_df(symbol=symbol1, from_date=start_date,to_date=end_date, series="EQ")
+        df=df.drop(["SERIES","SYMBOL"],axis=1)
+        df1 = stock_df(symbol=symbol2, from_date=start_date,to_date=end_date, series="EQ")
+        df1=df1.drop(["SERIES","SYMBOL"],axis=1)
+        file_name_csv="resources/data"+".csv"
+        file_name_csv1="resources/data1"+".csv"
+        df.to_csv(file_name_csv,index=False)
+        df1.to_csv(file_name_csv1,index = False)
+        
     
 def strategy(args):
     strat = args[1] 
@@ -75,7 +85,6 @@ def strategy(args):
     start_date = args[14]
     end_date = args[15]
     n = int(args[3])
-    
     
         
     
@@ -116,7 +125,12 @@ def main(args):
         i = i+1
     
     strats = strategy(args) 
-    write_function(strats[1],strats[2],strats[0]) 
+    symbol1 = args[16]
+    symbol2 = args[17]
+    if(args[1]=="PAIRS"):
+        write_function(strats[1],strats[2],strats[0],symbol1,symbol2) 
+    else:
+        write_function(strats[1],strats[2],strats[0])
    
 
 if __name__ == "__main__":
