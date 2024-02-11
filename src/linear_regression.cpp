@@ -113,7 +113,7 @@ std::vector<double> solve_RX_QTY(std::vector<std::vector<double> > &r_mat,std::v
     int n = qty_mat.size(); 
     std::vector<double> x_mat(n); 
     double last_val = 0 ; 
-             std::cout<<n<<std::endl; 
+            //  std::cout<<n<<std::endl; 
     for(int i = n-1 ; i >=0 ; i --)
     {
         last_val = 0 ; 
@@ -132,9 +132,9 @@ std::vector<double> mGS_orth(std::vector<std::vector<double> >&a_mat,std::vector
 {
 
     std::vector<std::vector<double> > r_mat = r_mat_and_updateA(a_mat); 
-             std::cout<<"ok we begin h "<<std::endl; 
+            //  std::cout<<"ok we begin h "<<std::endl; 
     std::vector<double> qty = qtranspose_y(y_mat,a_mat); 
-             std::cout<<"ok we begin h2"<<std::endl; 
+            //  std::cout<<"ok we begin h2"<<std::endl; 
     return solve_RX_QTY(r_mat,qty); 
 }
 
@@ -229,8 +229,8 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
     int position = 0 ; 
     double profit_loss = 0 ; 
      double last_price = 0 ; 
-     std::cout<<"hehe" <<std::endl; 
-     std::cout<<input.start_date<<" "<<input.end_date<<" "<<input.train_end_date<<" "<<input.train_start_date<<" "<<input.x<<" "<<input.p<<std::endl;
+    //  std::cout<<"hehe" <<std::endl; 
+    //  std::cout<<input.start_date<<" "<<input.end_date<<" "<<input.train_end_date<<" "<<input.train_start_date<<" "<<input.x<<" "<<input.p<<std::endl;
     std::vector<std::vector<double> > a_mat = dataset(stockdata,train_start_date,train_end_date);
 
     std::vector<double> y_mat = price_vector(stockdata,train_start_date,train_end_date); 
@@ -249,11 +249,11 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
         pred_vector[h] = qw; 
     }
     std::cout<<"R score is : "<<calculateRSquared(y_mat,pred_vector)<<std::endl;
-    for(auto daete:weights)
-    {
-        std::cout<<daete<<" w ";
-    }
-    std::cout<<std::endl; 
+    // for(auto daete:weights)
+    // {
+    //     std::cout<<daete<<" w ";
+    // }
+    // std::cout<<std::endl; 
     int n = stockdata.size(); 
     int cur_date_idx = n-1; 
     while(start_date > replace_hyphens(stockdata[cur_date_idx].date))
@@ -263,23 +263,19 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
 
     for(int i = cur_date_idx; i >=0; i --)
     {
-          std::cout<<" "<<i<<std::endl; 
+        //   std::cout<<" "<<i<<std::endl; 
         std::string current_date = replace_hyphens(stockdata[i].date);
         if(current_date >= start_date && current_date <= end_date)
         {
             last_price = stockdata[i].close; 
             double pred_price = predict_price(stockdata[i+1],stockdata[i].open,weights); 
-                     std::cout<<pred_price<<" "<<last_price<<std::endl; 
+                    //  std::cout<<pred_price<<" "<<last_price<<std::endl; 
             if(((pred_price-stockdata[i].close)*100 >= input.p*stockdata[i].close) && position < input.x)
             {
                 buy_stock(stockdata[i],daily,order,profit_loss,current_date);
                 position++;
             }
-<<<<<<< HEAD
-            else if(((-(pred_price-stockdata[i].close)*100) >= input.p*stockdata[i].close) && (position > -input.x))
-=======
             else if(-(pred_price-stockdata[i].close)*100 >= input.p*stockdata[i].close && position > -input.x)
->>>>>>> main
             {
                 sell_stock(stockdata[i],daily,order,profit_loss,current_date); 
                 position--;

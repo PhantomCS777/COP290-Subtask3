@@ -29,7 +29,7 @@ CPP_BINARY = main
 
 # Compiler settings
 CXX = g++
-CXXFLAGS = -std=c++17 -I$(INCLUDE_DIR) -fopenmp
+CXXFLAGS = -std=c++17 -I$(INCLUDE_DIR) -fopenmp -O3
 
 # Targets
 all: $(CPP_BINARY) run

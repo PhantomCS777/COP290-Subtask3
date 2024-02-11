@@ -34,8 +34,8 @@ Output rsi(std::vector <StockData> stockData, Input inp){
         sum_price_gain += gain(stockData[i].close,stockData[i+1].close);
         sum_loss += loss(stockData[i].close,stockData[i+1].close);       
     }
-    std::cout<<"before doing"<<std::endl;
-    std::cout<<sum_price_gain<<" "<<sum_loss<<std::endl;
+    // std::cout<<"before doing"<<std::endl;
+    // std::cout<<sum_price_gain<<" "<<sum_loss<<std::endl;
     for(int i=total_data_size-n-1;i>=0;i--)
     {
         sum_price_gain+=gain(stockData[i].close,stockData[i+1].close);
@@ -50,8 +50,8 @@ Output rsi(std::vector <StockData> stockData, Input inp){
             double rs=sum_price_gain/sum_loss;
             rsi=100.0-(100.0/(1.0+rs));}
             else rsi=100.0;
-            std::cout<<"date "<<cur_date;
-            std::cout<<" rsi sum_price_gain sum_loss "<<rsi<<" "<<sum_price_gain<<" "<<sum_loss<<std::endl;
+            // std::cout<<"date "<<cur_date;
+            // std::cout<<" rsi sum_price_gain sum_loss "<<rsi<<" "<<sum_price_gain<<" "<<sum_loss<<std::endl;
             if(rsi<=inp.oversold_threshold&&position<limit){
                 // std::cout<<"I am here"<<std::endl;
                 position++;
