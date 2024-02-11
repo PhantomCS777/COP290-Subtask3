@@ -1,6 +1,6 @@
 #include "basic.h"
 
-Output basic(std::vector <StockData> &stockdata,Input inp)
+Output basic(std::vector <StockData> stockdata,Input inp)
 {
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
