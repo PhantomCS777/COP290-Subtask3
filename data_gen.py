@@ -96,7 +96,9 @@ def strategy(args):
 
         
     #pairs is remaining 
-
+    if strat == "BEST_OF_ALL":
+        start_date = get_past_date(start_date,365)
+        
     start_date = get_past_date(start_date,7*n/5 + 7)
 
     end_date = get_future_date(end_date,7)

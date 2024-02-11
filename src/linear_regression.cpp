@@ -10,7 +10,19 @@
  QTransposeY = RX 
 
 */
+double calculateRSquared(const std::vector<double>& actual, const std::vector<double>& predicted) {
+    double meanActual = std::accumulate(actual.begin(), actual.end(), 0.0) / actual.size();
 
+    double ssTotal = 0.0;
+    double ssResidual = 0.0;
+
+    for (size_t i = 0; i < actual.size(); ++i) {
+        ssTotal += std::pow(actual[i] - meanActual, 2);
+        ssResidual += std::pow(actual[i] - predicted[i], 2);
+    }
+
+    return 1 - (ssResidual / ssTotal);
+}
 
 double norm_v(std::vector<double> &v)
 {
@@ -141,6 +153,7 @@ std::vector<std::vector<double> > dataset(std::vector <StockData>&stockdata,std:
     for(int i = cur_date_idx; i >=0 ; i--)
     {
         std::string current_date = replace_hyphens(stockdata[i].date);
+   
         if(current_date >= train_start_date && current_date <= train_end_date)
         {
             a_mat[0].push_back(1); 
@@ -203,7 +216,7 @@ double predict_price(StockData &yesterday,double todayopen,std::vector<double> &
     return price; 
 }
 
-Output linear_regression(std::vector <StockData>&stockdata,Input&input)
+Output linear_regression(std::vector <StockData>stockdata,Input input)
 {
     std::vector <Cash_flow> daily;
     std::vector <Order_stats> order;
@@ -217,14 +230,30 @@ Output linear_regression(std::vector <StockData>&stockdata,Input&input)
     double profit_loss = 0 ; 
      double last_price = 0 ; 
      std::cout<<"hehe" <<std::endl; 
+     std::cout<<input.start_date<<" "<<input.end_date<<" "<<input.train_end_date<<" "<<input.train_start_date<<" "<<input.x<<" "<<input.p<<std::endl;
     std::vector<std::vector<double> > a_mat = dataset(stockdata,train_start_date,train_end_date);
 
     std::vector<double> y_mat = price_vector(stockdata,train_start_date,train_end_date); 
         
     std::vector<double> weights = mGS_orth(a_mat,y_mat); 
-   
-    
+    std::vector<std::vector<double> > b_mat = dataset(stockdata,train_start_date,train_end_date);
+    std::vector<double> pred_vector(y_mat.size()); 
+    for(int h = 0 ; h < y_mat.size(); h++)
+    {
 
+        double qw = 0; 
+        for(int j = 0 ; j < 8 ; j++)
+        {
+            qw+=b_mat[j][h]*weights[j];
+        }
+        pred_vector[h] = qw; 
+    }
+    std::cout<<"R score is : "<<calculateRSquared(y_mat,pred_vector)<<std::endl;
+    for(auto daete:weights)
+    {
+        std::cout<<daete<<" w ";
+    }
+    std::cout<<std::endl; 
     int n = stockdata.size(); 
     int cur_date_idx = n-1; 
     while(start_date > replace_hyphens(stockdata[cur_date_idx].date))
@@ -246,7 +275,7 @@ Output linear_regression(std::vector <StockData>&stockdata,Input&input)
                 buy_stock(stockdata[i],daily,order,profit_loss,current_date);
                 position++;
             }
-            else if(-(pred_price-stockdata[i].close)*100 >= input.p*stockdata[i].close && position > input.x)
+            else if(-(pred_price-stockdata[i].close)*100 >= input.p*stockdata[i].close && position > -input.x)
             {
                 sell_stock(stockdata[i],daily,order,profit_loss,current_date); 
                 position--;
