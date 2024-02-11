@@ -59,8 +59,8 @@ overbought_threshold = 70
 adx_threshold = 25 
 train_start_date = "01/01/2024"
 train_end_date = "31/01/2024"
-symbol1 = "SBIN"
-symbol2 = "ADANIENT"
+symbol1 = "a"
+symbol2 = "b"
 threshold=0
 stop_loss_threshold=0
 
