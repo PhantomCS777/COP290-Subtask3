@@ -82,12 +82,18 @@ class Output{
         this->final_profit_loss=final_profit_loss;
         this->daily=daily;
         this->order1=order1;
+        // std::cout<<" it is working "<<std::endl;
     }
     Output(double final_profit_loss,std::vector <Cash_flow> daily,std::vector<Order_stats> order1,std::vector <Order_stats> order2){
+        // std::cout<<" it is working "<<std::endl;
         this->final_profit_loss=final_profit_loss;
         this->daily=daily;
         this->order1=order1;
         this->order2=order2;
+        
+        // for(auto ele:this->order2){
+        // std::cout<<ele.date<<" "<<ele.order_dir<<" "<<ele.price<<" "<<ele.quantity<<std::endl;
+        // }
     }
     Output()
     {

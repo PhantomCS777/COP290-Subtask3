@@ -300,10 +300,10 @@ int main(int argc, char* argv[])
 
    std::cout<<"c++ output"<<std::endl; 
         std::cout<<a.final_profit_loss<<std::endl;
-        std::cout<<a.daily.size()<<std::endl;
-        for(auto ele:a.daily){
-            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
-        }
+        // std::cout<<a.daily.size()<<std::endl;
+        // for(auto ele:a.daily){
+        //     std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
+        // }
 
     return 0 ; 
 

@@ -61,6 +61,7 @@ void Output::write(bool is_pair)
         file1.close();
     }
     else{
+        std::cout<<"I reached here"<<std::endl;
         file_name = "order_statistics_1.csv";
         std::ofstream file3(file_name);
         file3<<"Date,Order_dir,Quantity,Price"<<std::endl;
@@ -75,7 +76,7 @@ void Output::write(bool is_pair)
         std::ofstream file4(file_name);
         file4<<"Date,Order_dir,Quantity,Price"<<std::endl;
         for(auto ele:this->order2){
-            file3<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+            file4<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
         }
         file4.close();
     }
