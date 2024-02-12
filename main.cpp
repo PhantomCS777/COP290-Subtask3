@@ -9,7 +9,7 @@
 #include "src/rsi.h" 
 #include "src/adx.h"
 #include "src/simple_pairs.h"
-
+#include "src/stop_loss_pairs.h"
 
 std::vector<StockData> readStockPrice(const std::string& filename)
 {
@@ -295,8 +295,12 @@ int main(int argc, char* argv[])
         //     input.end_date = argv[9];
         // }
         std::vector<StockData> v2 = readStockPrice("data1.csv"); 
+     
+            if (input.stop_loss_threshold==0)
         a = simple_pairs(v,v2,input); 
-        a.write(true); 
+        else 
+        a = stop_loss_pairs(v,v2,input);
+        a.write(true);
 
     }
 
