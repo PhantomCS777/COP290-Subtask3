@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from jugaad_data.nse import stock_df
 from jugaad_data.nse import stock_csv
 import os
-import matplotlib.pyplot as pt
+# import matplotlib.pyplot as pt
 import sys
 
 

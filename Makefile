@@ -42,7 +42,7 @@ $(CPP_BINARY): $(OBJECTS)
 
 run: 
 	python3 data_gen.py $(strategy) $(symbol) $(n) $(x) $(p) $(max_hold_days) $(c1) $(c2) $(oversold_threshold) $(overbought_threshold) $(adx_threshold) $(train_start_date) $(train_end_date) $(start_date) $(end_date) $(symbol1) $(symbol2) $(threshold) $(stop_loss_threshold)
-	time ./$(CPP_BINARY) $(strategy) $(symbol) $(n) $(x) $(p) $(max_hold_days) $(c1) $(c2) $(oversold_threshold) $(overbought_threshold) $(adx_threshold) $(train_start_date) $(train_end_date) $(start_date) $(end_date) $(symbol1) $(symbol2) $(threshold) $(stop_loss_threshold)
+	./$(CPP_BINARY) $(strategy) $(symbol) $(n) $(x) $(p) $(max_hold_days) $(c1) $(c2) $(oversold_threshold) $(overbought_threshold) $(adx_threshold) $(train_start_date) $(train_end_date) $(start_date) $(end_date) $(symbol1) $(symbol2) $(threshold) $(stop_loss_threshold)
 
 clean:
 	rm -f $(CPP_BINARY) $(OBJECTS)
@@ -61,6 +61,7 @@ train_start_date = "01/01/2024"
 train_end_date = "31/01/2024"
 symbol1 = "a"
 symbol2 = "b"
+symbol=SBIN
 threshold=0
 stop_loss_threshold=0
 

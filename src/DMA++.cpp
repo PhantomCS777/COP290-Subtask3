@@ -47,35 +47,35 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
         double cur_price=stockData[i].close;
         sum_abs_diff+=mod_sub(stockData[i].close,stockData[i+1].close);
         std::string cur_date = replace_hyphens(stockData[i].date);
+        
         if(cur_date>=start_date&&cur_date<=end_date){
             trading_day++;
             last_price=cur_price;
-            // if(std::fabs(sum_abs_diff)<0.000001){
-            //     sum_abs_diff-=mod_sub(stockData[i+n-1].close,stockData[i+n].close);
-            //     continue;
-            // }
+            if(std::fabs(sum_abs_diff)<0.000001){
+                sum_abs_diff-=mod_sub(stockData[i+n-1].close,stockData[i+n].close);
+                continue;
+            }
+           
             if(trading_day!=1){
-                double ER = stockData[i].close-stockData[i+n].close;
+                double ER = (stockData[i].close-stockData[i+n].close);
+      
                 ER = ER/sum_abs_diff;
-                double num = (2*ER/(1+c2)) - 1;
+                double num = ((2*ER/(1+c2)) - 1);
                 double den = (2*ER/(1+c2)) +1;
-                if(std::fabs(den)<0.000001){
-                    std::cout<<" den "<<den<<std::endl;
-                }
                 double done = num/den;
-                done = done - sf;
-                done = done * c1;
-                sf=sf+done;
+          
+            //    std::cout<<sf<<" "<<cur_price<<" "<<std::endl; 
+                sf=sf+c1*(done-sf);
                 ama=ama+sf*(cur_price-ama);
             }
             else{
                 ama=cur_price;
             }
             std::cout<<"date "<<cur_date<<" ama "<<ama<<" sf "<<sf<<" price "<<cur_price<<std::endl;
-            Cash_flow a(cur_date,0);
-            Order_stats b(cur_date,"lol",0,0);
+            Cash_flow a(revback(cur_date),0);
+            Order_stats b(revback(cur_date),"lol",0,0);
             // uptill this point all the factors required have been calculated
-            if(cur_price>=(ama+((p*ama)/100))&&position<limit){
+            if(cur_price>=(ama+ p*ama/100)&&position<limit){
                     position++;
                     a.transaction-=cur_price;
                     profit_loss-=cur_price;
@@ -94,6 +94,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
 
             }
             else if(cur_price<=(ama)-((p*ama)/100) && position>(-1*limit)){
+                std::cout<<cur_date<<" "<<"SELL"<<std::endl;
                 //sell the stock and add it to the queue
                 position--;
                 a.transaction+=cur_price;
@@ -164,6 +165,6 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
     // after squaring off final profit loss accomodated.
     // appropriate changes done
     Output ans(profit_loss,daily,order);
-    ans.write(false);
+ 
     return ans;
 }

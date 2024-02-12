@@ -28,7 +28,7 @@ Output macd(std::vector <StockData> stockdata,Input input)
     double short_ewmt=ewm0; 
     double long_ewmt= ewm0; 
     double signal = 0; 
-    Cash_flow today(current_date,profit_loss);
+    Cash_flow today(revback(current_date),profit_loss);
     daily.emplace_back(today) ; 
     double alpha1 = 2.0/13; 
     double alpha2 = 2.0/27; 
@@ -41,14 +41,13 @@ Output macd(std::vector <StockData> stockdata,Input input)
         
         if(current_date  >= start_date && current_date <=end_date)
         {
-            
+            current_date=revback(current_date);
             last_price = stockdata[i].close; 
             short_ewmt = alpha1*(stockdata[i].close-short_ewmt) + short_ewmt; 
             long_ewmt = alpha2*(stockdata[i].close -long_ewmt) + long_ewmt; 
             double macd_val = short_ewmt - long_ewmt; 
             signal =  alpha3*(macd_val - signal ) + signal; 
          
-            
             if(macd_val > signal && position < input.x)
             {
 
