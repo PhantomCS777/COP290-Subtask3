@@ -45,10 +45,11 @@ Output rsi(std::vector <StockData> stockData, Input inp){
         if(cur_date>=start_date&&cur_date<=end_date){
             cur_price=stockData[i].close;
             double rsi;
-            if(sum_loss!=0)
+            if(fabs(sum_loss)>0.000001)
             {
-            double rs=sum_price_gain/sum_loss;
-            rsi=100.0-(100.0/(1.0+rs));}
+                double rs=sum_price_gain/sum_loss;
+                rsi=100.0-(100.0/(1.0+rs));
+            }
             else rsi=100.0;
             // std::cout<<"date "<<cur_date;
             std::cout<<" rsi sum_price_gain sum_loss "<<rsi<<" "<<sum_price_gain<<" "<<sum_loss<<std::endl;

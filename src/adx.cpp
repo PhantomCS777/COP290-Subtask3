@@ -11,12 +11,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
     end_date = reverse(end_date);
     int limit = inp.x;
     int n = inp.n;
-    // std::cout<<" limit "<<limit<<std::endl;
-    // std::cout<<" n "<<n<<std::endl;
     double adx_threshold = inp.adx_threshold;
-    // std::cout<<" adx_threshold "<<adx_threshold<<std::endl;
-    // std::cout<<" start date"<<start_date<<std::endl;
-    // std::cout<<" end date"<<end_date<<std::endl;
     int total_data_size=stockData.size();
     double last_price=0;
     int trading_day=0;
@@ -28,7 +23,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
     double adx;
     double profit_loss=0;
     int position=0;
-    std::cout<<"total_data_size "<<total_data_size<<std::endl;
+    // std::cout<<"total_data_size "<<total_data_size<<std::endl;
     for(int i=(total_data_size-1);i>=0;i--){
         std::string cur_date=replace_hyphens(stockData[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
@@ -47,6 +42,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
             else{
                 atr=alpha*(tr-atr)+atr;
             }
+            // std::cout<<" cur_date "<<cur_date<<" atr "<<atr<<std::endl;
             double ratio_plus=dm_plus/atr;
             double ratio_minus=dm_minus/atr;
             if(trading_day==1){
@@ -57,18 +53,27 @@ Output adx(std::vector <StockData> stockData,Input inp){
             }            
             if(trading_day==1){
                 di_minus = ratio_minus;
+                // std::cout<<" di_minus "<<di_minus<<std::endl;
             }
             else{
                 di_minus = alpha*(ratio_minus-di_minus)+di_minus;
             }
-            dx = (di_plus-di_minus)/(di_plus+di_minus)*100.0;
+            double sum =  di_plus+di_minus;
+            bool issue=false;
+            if(fabs(sum)<0.000001){
+                dx=0.0;
+                issue=true;
+            }
+            else dx = ((di_plus-di_minus)/(sum))*100.0;
+            // std::cout<<" cur_date "<<cur_date<<" dx "<<dx<<std::endl;
             if(trading_day==1){
                 adx=dx;
             }
             else{
                 adx=alpha*(dx-adx)+adx;
             }
-            std::cout<<" cur_date "<<cur_date<<" adx "<<adx<<std::endl;
+            if(issue) continue;
+            // std::cout<<" cur_date "<<cur_date<<" adx "<<adx<<std::endl;
             if(adx>=adx_threshold&&position<limit){
                 position++;
                 buy_stock(stockData[i],daily,order,profit_loss,cur_date);
