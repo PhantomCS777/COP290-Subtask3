@@ -51,7 +51,7 @@ Output rsi(std::vector <StockData> stockData, Input inp){
             rsi=100.0-(100.0/(1.0+rs));}
             else rsi=100.0;
             // std::cout<<"date "<<cur_date;
-            // std::cout<<" rsi sum_price_gain sum_loss "<<rsi<<" "<<sum_price_gain<<" "<<sum_loss<<std::endl;
+            std::cout<<" rsi sum_price_gain sum_loss "<<rsi<<" "<<sum_price_gain<<" "<<sum_loss<<std::endl;
             if(rsi<=inp.oversold_threshold&&position<limit){
                 // std::cout<<"I am here"<<std::endl;
                 position++;

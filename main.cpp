@@ -263,7 +263,7 @@ int main(int argc, char* argv[])
     outputs[4] = b5; 
     outputs[5] = b6; 
     outputs[6] = b7; 
-    std::vector<std::string> stratss = {" BASIC "," DMA "," DMA++ "," MACD "," LINEAR_REGRESSION "," RSI "," ADX "};
+    std::vector<std::string> stratss = {" BASIC "," DMA "," DMA++ "," MACD "," LINEAR_REGRESSION "," RSI "," ADX"};
     Output best_of_all = outputs[0]; 
     for(int h = 0 ; h < 7; h++)
     {

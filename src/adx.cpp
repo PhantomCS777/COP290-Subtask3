@@ -40,6 +40,7 @@ Output adx(std::vector <StockData> stockData,Input inp){
             double tr= std::max<double> (stockData[i].high-stockData[i].low,stockData[i].high-stockData[i].prev_close);
             tr = std::max<double> (tr,stockData[i].low-stockData[i].prev_close);
             double dm_minus = std::max<double> (0,stockData[i].low-stockData[i+1].low);
+            std::cout<<tr<<" "<<atr<<" "<<std::endl; 
             if(trading_day==1){
                 atr = tr;    
             }

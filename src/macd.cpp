@@ -48,7 +48,6 @@ Output macd(std::vector <StockData> stockdata,Input input)
             double macd_val = short_ewmt - long_ewmt; 
             signal =  alpha3*(macd_val - signal ) + signal; 
          
-            
             if(macd_val > signal && position < input.x)
             {
 
