@@ -44,6 +44,7 @@ Output rsi(std::vector <StockData> stockData, Input inp){
         std::string cur_date = replace_hyphens(stockData[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
             cur_price=stockData[i].close;
+            cur_date = revback(cur_date);
             double rsi;
             if(fabs(sum_loss)>0.000001)
             {

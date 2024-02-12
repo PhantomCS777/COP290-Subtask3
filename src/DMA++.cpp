@@ -72,8 +72,8 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                 ama=cur_price;
             }
             std::cout<<"date "<<cur_date<<" ama "<<ama<<" sf "<<sf<<" price "<<cur_price<<std::endl;
-            Cash_flow a(cur_date,0);
-            Order_stats b(cur_date,"lol",0,0);
+            Cash_flow a(revback(cur_date),0);
+            Order_stats b(revback(cur_date),"lol",0,0);
             // uptill this point all the factors required have been calculated
             if(cur_price>=(ama+ p*ama/100)&&position<limit){
                     position++;

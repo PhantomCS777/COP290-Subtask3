@@ -122,20 +122,15 @@ int main(int argc, char* argv[])
         // input.start_date = argv[5];
         // input.end_date = argv[6];
          a= basic(v,input);
-       
+        a.write(false);
         
     }
     else if(strategy == "DMA")
     {
-         a= DMA(v,input);
         
-        Output a= DMA(v,input);
-        std::cout<<"c++ output"<<std::endl; 
-        std::cout<<a.final_profit_loss<<std::endl;
-        std::cout<<a.daily.size()<<std::endl;
-        for(auto ele:a.daily){
-            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
-        }
+        
+        a= DMA(v,input);
+           a.write(false); 
     }
      else if(strategy == "DMA++")
     {
@@ -149,13 +144,15 @@ int main(int argc, char* argv[])
         // input.c2 = std::stod(argv[8]); 
         // input.start_date = argv[9];
         // input.end_date = argv[10];
+        a = modi_dma(v,input);
+           a.write(false); 
 
     }
       else if(strategy == "MACD")
     {
         
          a= macd(v,input);
-       
+           a.write(false); 
 
     }
 
@@ -169,7 +166,8 @@ int main(int argc, char* argv[])
         // input.overbought_threshold = std::stod(argv[6]);
         // input.start_date = argv[7];
         // input.end_date = argv[8];
-
+        a = rsi(v,input); 
+           a.write(false); 
     }
      else if(strategy == "ADX")
     {
@@ -180,6 +178,8 @@ int main(int argc, char* argv[])
         // input.adx_threshold = std::stod(argv[5]); 
         // input.start_date = argv[6];
         // input.end_date = argv[7];
+            a = adx(v,input); 
+           a.write(false); 
 
     }
      else if(strategy == "LINEAR_REGRESSION")
@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
         std::cout<<"entring linear reg"<<std::endl; 
         a = linear_regression(v,input);
         std::cout<<"done li re"<<std::endl; 
-
+           a.write(false); 
 
     }
      else if(strategy == "BEST_OF_ALL")
@@ -274,6 +274,7 @@ int main(int argc, char* argv[])
         }
     }
     a = best_of_all ;
+    a.write(false); 
     }
      else if(strategy == "PAIRS")
     {
@@ -295,15 +296,16 @@ int main(int argc, char* argv[])
         // }
         std::vector<StockData> v2 = readStockPrice("data1.csv"); 
         a = simple_pairs(v,v2,input); 
+        a.write(true); 
 
     }
 
    std::cout<<"c++ output"<<std::endl; 
         std::cout<<a.final_profit_loss<<std::endl;
-        std::cout<<a.daily.size()<<std::endl;
-        for(auto ele:a.daily){
-            std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
-        }
+        // std::cout<<a.daily.size()<<std::endl;
+        // for(auto ele:a.daily){
+        //     std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 
+        // }
 
     return 0 ; 
 

@@ -17,6 +17,16 @@ std::string replace_hyphens(std::string str){
     return ans;
 }
 
+std::string revback(std::string str)
+{
+    std::string ans ="";
+    ans+=(str.substr(8,2) + '/'); 
+    ans+=(str.substr(5,2)+'/');
+    ans += str.substr(0,4);
+
+    return ans;
+    
+}
 void buy_stock(StockData row, std::vector<Cash_flow> &daily, std::vector<Order_stats> &order, double &profit_loss,std::string modified_date)
 {
     Cash_flow a(modified_date,profit_loss-1*row.close);

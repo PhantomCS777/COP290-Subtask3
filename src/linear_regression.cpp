@@ -269,6 +269,7 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
         std::string current_date = replace_hyphens(stockdata[i].date);
         if(current_date >= start_date && current_date <= end_date)
         {
+            current_date = revback(current_date);
             std::cout<<end_date<<" this is it now n "<<current_date<<std::endl;
             last_price = stockdata[i].close; 
             double pred_price = predict_price(stockdata[i+1],stockdata[i].open,weights); 

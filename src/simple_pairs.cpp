@@ -38,6 +38,7 @@ Output simple_pairs(std::vector <StockData> stockData1,std::vector <StockData> s
         // till this point z score is calculated now we need to resolve the issue of how to think of position and i am going to do it tommorow.
         if(cur_date>=start_date && cur_date<=end_date){
             last_price = spread(stockData1[i],stockData2[i]); 
+            cur_date  = revback(cur_date); 
             if(z_score>threshold&&position>(-1*limit)){
                 position--;
                 profit_loss += spread(stockData1[i],stockData2[i]);

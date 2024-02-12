@@ -38,6 +38,7 @@ Output DMA(std::vector <StockData> stockdata,Input inp)
         std::string cur_date=replace_hyphens(stockdata[i].date);
         if(cur_date>=start_date&&cur_date<=end_date){
             last_price=stockdata[i].close;
+            cur_date = revback(cur_date);
             if((cur_price >= dma+(p*sd)) && position < limit){
                 position++;
                 Cash_flow a(cur_date,final_profit_loss-1*cur_price);
