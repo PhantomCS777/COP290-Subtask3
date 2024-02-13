@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "simple_pairs.h"
+#include "stop_loss_pairs.h"
 
 double give_spread(StockData data1, StockData data2){
     return data1.close-data2.close;
@@ -24,15 +24,14 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
     double last_price=0;
     double profit_loss=0;
     int total_data_size = stockData1.size();
-    std::vector <std::pair<double,double>> already_bought;
-    std::vector <std::pair<double,double>> already_sold;
+    std::vector <Stock_info> already_bought;
+    std::vector <Stock_info> already_sold;
     for(int i=(total_data_size-1);i>=total_data_size-n+1;i--){
         sum_spread+=give_spread(stockData1[i],stockData2[i]);
         square_sum_spread+=give_spread(stockData1[i],stockData2[i])*give_spread(stockData1[i],stockData2[i]);
     }
 
     for(int i=(total_data_size-n);i>=0;i--){
-        
         std::string cur_date=replace_hyphens(stockData1[i].date);
         sum_spread+=give_spread(stockData1[i],stockData2[i]);
         square_sum_spread += give_spread(stockData1[i],stockData2[i])*give_spread(stockData1[i],stockData2[i]);
@@ -53,7 +52,8 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
             // std::cout<<"cur_date "<<cur_date<<" z_score "<<z_score<<" sd "<<sd<<std::endl;
             if(z_score>threshold&&position>(-1*limit)){
                 if(already_bought.empty()){
-                    already_sold.push_back({mean,sd});
+                    Stock_info stock(cur_date,mean,sd);
+                    already_sold.push_back(stock);
                 }
                 else{
                     already_bought.erase(already_bought.begin());
@@ -62,18 +62,19 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
             }
             else if(z_score < -1*threshold &&position<limit){
                 if(already_sold.empty()){
-                    already_bought.push_back({mean,sd});
+                    Stock_info stock(cur_date,mean,sd);
+                    already_bought.push_back(stock);
                 }
                 else{
                     already_sold.erase(already_sold.begin());
                 }
                 bought++;
             }
-            std::vector <std::pair<double,double>> already_sold_remain;
-            std::vector <std::pair<double,double>> already_bought_remain;  
+            std::vector <Stock_info> already_sold_remain;
+            std::vector <Stock_info> already_bought_remain;  
             for(auto ele:already_sold){
-                double z_score = (cur_spread-ele.first)/(ele.second);
-                if(z_score > stop_loss_threshold){
+                double z_score = (cur_spread-ele.mean)/(ele.sd);
+                if(z_score > stop_loss_threshold&&(ele.buy_date!=cur_date)){
                     bought++;
                 }
                 else{
@@ -82,8 +83,8 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
             }
 
             for(auto ele:already_bought){
-                double z_score = (cur_spread-ele.first)/(ele.second);
-                if(z_score<-1*stop_loss_threshold){
+                double z_score = (cur_spread-ele.mean)/(ele.sd);
+                if(z_score<-1*stop_loss_threshold&&(ele.buy_date!=cur_date)){
                     sold++;
                 }
                 else{

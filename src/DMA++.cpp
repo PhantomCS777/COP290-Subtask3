@@ -75,7 +75,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
             Cash_flow a(revback(cur_date),0);
             Order_stats b(revback(cur_date),"lol",0,0);
             // uptill this point all the factors required have been calculated
-            if(cur_price>=(ama+ p*ama/100)&&position<limit){
+            if((cur_price-ama)>= (p*ama/100.0)&&position<limit){
                     position++;
                     a.transaction-=cur_price;
                     profit_loss-=cur_price;
@@ -90,7 +90,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     }
 //buy stock here and add it to the queue
             }
-            else if(cur_price<=(ama)-((p*ama)/100) && position>(-1*limit)){
+            else if((cur_price-ama)<=(-1.0)*((p*ama)/100.0) && position>(-1*limit)){
                 std::cout<<cur_date<<" "<<"SELL"<<std::endl;
                 //sell the stock and add it to the queue
                 position--;
@@ -106,7 +106,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     buy_day.push(i-max_hold_days);
                 }
             }
-            else if(cur_price>=(ama+ p*ama/100)&&position==limit){
+            else if((cur_price-ama)>= (p*ama/100.0)&&position==limit){
                 if(!sell_day.empty()){
                     if(sell_day.front()==i){
                         position++;
@@ -119,7 +119,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     }
                 }
             }       
-            else if(cur_price<=(ama)-((p*ama)/100) && position==(-1*limit)){
+            else if((cur_price-ama)<=(-1.0)*((p*ama)/100) && position==(-1*limit)){
                 if(!buy_day.empty()){
                     if(buy_day.front()==i){
                         position--;
