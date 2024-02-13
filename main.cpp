@@ -84,10 +84,10 @@ int main(int argc, char* argv[])
 
 
 
-    std::cout<<"c++ output"<<std::endl; 
-    for (int i = 0; i < argc; ++i) {
-        std::cout << argv[i] << std::endl;
-    }
+    // std::cout<<"c++ output"<<std::endl; 
+    // for (int i = 0; i < argc; ++i) {
+    //     std::cout << argv[i] << std::endl;
+    // }
 
     std::vector<StockData> v = readStockPrice("data.csv"); 
     Input input; 
@@ -185,9 +185,9 @@ int main(int argc, char* argv[])
      else if(strategy == "LINEAR_REGRESSION")
     {
         
-        std::cout<<"entring linear reg"<<std::endl; 
+        // std::cout<<"entring linear reg"<<std::endl; 
         a = linear_regression(v,input);
-        std::cout<<"done li re"<<std::endl; 
+        // std::cout<<"done li re"<<std::endl; 
            a.write(false); 
 
     }
@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
     Output best_of_all = outputs[0]; 
     for(int h = 0 ; h < 7; h++)
     {
-        std::cout<<h<<stratss[h]<<outputs[h].final_profit_loss<<std::endl; 
+        // std::cout<<h<<stratss[h]<<outputs[h].final_profit_loss<<std::endl; 
         if (best_of_all.final_profit_loss < outputs[h].final_profit_loss)
         {
             best_of_all = outputs[h];
@@ -304,8 +304,8 @@ int main(int argc, char* argv[])
 
     }
 
-   std::cout<<"c++ output"<<std::endl; 
-        std::cout<<a.final_profit_loss<<std::endl;
+//    std::cout<<"c++ output"<<std::endl; 
+//         std::cout<<a.final_profit_loss<<std::endl;
         // std::cout<<a.daily.size()<<std::endl;
         // for(auto ele:a.daily){
         //     std::cout<<ele.date<<" "<<ele.transaction<<std::endl; 

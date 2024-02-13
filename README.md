@@ -125,28 +125,28 @@ c1=0.2, c2=2.
 • For DMA, p=2, while for DMA++, p=5. 
 The R score of the Linear regression is 0.977409 
 
-SBIN : 
+### SBIN : 
   ![error](./resources/sbin.png)
 
-BASIC: 
+### BASIC: 
   ![error](./resources/basic.png)
 
-DMA:
+### DMA:
   ![error](./resources/dma.png)
 
-DMA++:
-  ![error](./resources/dma++.png)
+### DMA++:
+  ![error](./resources/dmapp.png)
 
-RSI: 
+### RSI: 
   ![error](./resources/rsi.png)
 
-linear_regression: 
+### linear_regression: 
   ![error](./resources/lr.png)
 
-MACD: 
+### MACD: 
   ![error](./resources/macd.png)
 
-ADX:
+### ADX:
   ![error](./resources/adx.png)
 
 
