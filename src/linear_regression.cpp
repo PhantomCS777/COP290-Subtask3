@@ -10,19 +10,7 @@
  QTransposeY = RX 
 
 */
-double calculateRSquared(const std::vector<double>& actual, const std::vector<double>& predicted) {
-    double meanActual = std::accumulate(actual.begin(), actual.end(), 0.0) / actual.size();
 
-    double ssTotal = 0.0;
-    double ssResidual = 0.0;
-
-    for (size_t i = 0; i < actual.size(); ++i) {
-        ssTotal += std::pow(actual[i] - meanActual, 2);
-        ssResidual += std::pow(actual[i] - predicted[i], 2);
-    }
-
-    return 1 - (ssResidual / ssTotal);
-}
 
 double norm_v(std::vector<double> &v)
 {
@@ -81,6 +69,19 @@ void sub_v1_av2(std::vector<double>&v1,std::vector<double>&v2,double val)
     }
 }
 
+// double calculateRSquared(const std::vector<double>& actual, const std::vector<double>& predicted) {
+//     double meanActual = std::accumulate(actual.begin(), actual.end(), 0.0) / actual.size();
+
+//     double ssTotal = 0.0;
+//     double ssResidual = 0.0;
+
+//     for (size_t i = 0; i < actual.size(); ++i) {
+//         ssTotal += std::pow(actual[i] - meanActual, 2);
+//         ssResidual += std::pow(actual[i] - predicted[i], 2);
+//     }
+
+//     return 1 - (ssResidual / ssTotal);
+// }
 std::vector<std::vector<double> > r_mat_and_updateA(std::vector<std::vector <double> > &a_mat)
 {
     int n = a_mat.size(); 
@@ -236,18 +237,18 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
     std::vector<double> y_mat = price_vector(stockdata,train_start_date,train_end_date); 
         
     std::vector<double> weights = mGS_orth(a_mat,y_mat); 
-    std::vector<std::vector<double> > b_mat = dataset(stockdata,train_start_date,train_end_date);
-    std::vector<double> pred_vector(y_mat.size()); 
-    for(int h = 0 ; h < y_mat.size(); h++)
-    {
+    // std::vector<std::vector<double> > b_mat = dataset(stockdata,train_start_date,train_end_date);
+    // // std::vector<double> pred_vector(y_mat.size()); 
+    // for(int h = 0 ; h < y_mat.size(); h++)
+    // {
 
-        double qw = 0; 
-        for(int j = 0 ; j < 8 ; j++)
-        {
-            qw+=b_mat[j][h]*weights[j];
-        }
-        pred_vector[h] = qw; 
-    }
+    //     double qw = 0; 
+    //     for(int j = 0 ; j < 8 ; j++)
+    //     {
+    //         qw+=b_mat[j][h]*weights[j];
+    //     }
+    //     pred_vector[h] = qw; 
+    // }
     int n = stockdata.size(); 
     int cur_date_idx = n-1; 
     while(start_date > replace_hyphens(stockdata[cur_date_idx].date))

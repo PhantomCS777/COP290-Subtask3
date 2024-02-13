@@ -149,7 +149,12 @@ The R score of the Linear regression is 0.977409
 ### ADX:
   ![error](./resources/adx.png)
 
-
+### Observations
+  - The moving average does not seem to be affected by short term spikes.
+  - RSI seems to represent some sort of a momentum as during sharp change of the price RSI seems to reflect it.
+  - MACD: In the current price flucatuation the MACD does not seem to change.
+  - Linear Regression : The predicted price matches the actual price quite well. The R score is 0.977 which it also explains the variability in data quite well.
+  - ATR : The ATR seems to represent trend as the price in the starting days is not fluctuating much and the ATR is low and when there is a drop the ATR rises and again when the price fluctuates less the ATR falls to lower value.
 
 
 
