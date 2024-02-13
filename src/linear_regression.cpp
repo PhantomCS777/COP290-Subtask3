@@ -222,10 +222,8 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
     std::vector <Order_stats> order;
     std::string start_date = input.start_date;
     std::string end_date = input.end_date;
-    start_date = reverse(start_date);
-    std::cout<<" ny lefie is hell "<<input.end_date<<std::endl; 
+    start_date = reverse(start_date); 
     end_date = reverse(input.end_date);
-     std::cout<<" ny lefie isasdfadf hell "<<end_date<<std::endl;
     std::string train_start_date = reverse(input.train_start_date); 
     std::string train_end_date = reverse(input.train_end_date); 
     int position = 0 ; 
@@ -250,12 +248,6 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
         }
         pred_vector[h] = qw; 
     }
-    std::cout<<"R score is : "<<calculateRSquared(y_mat,pred_vector)<<std::endl;
-    for(auto daete:weights)
-    {
-        std::cout<<daete<<" w ";
-    }
-    std::cout<<std::endl; 
     int n = stockdata.size(); 
     int cur_date_idx = n-1; 
     while(start_date > replace_hyphens(stockdata[cur_date_idx].date))
@@ -270,7 +262,6 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
         if(current_date >= start_date && current_date <= end_date)
         {
             current_date = revback(current_date);
-            std::cout<<end_date<<" this is it now n "<<current_date<<std::endl;
             last_price = stockdata[i].close; 
             double pred_price = predict_price(stockdata[i+1],stockdata[i].open,weights); 
                      std::cout<<pred_price<<" "<<last_price<<std::endl; 
@@ -297,12 +288,7 @@ Output linear_regression(std::vector <StockData>stockdata,Input input)
             break; 
         }
     }
-    std::cout<<"final price "<<last_price<<" "<<std::endl; 
     profit_loss += position*last_price;
     Output output(profit_loss,daily,order);
     return output; 
-
-   
-
-
 }

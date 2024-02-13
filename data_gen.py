@@ -16,7 +16,6 @@ date_format = "%d/%m/%Y"
 def get_past_date(date_str, n):
   
     
-    print("this is it",date_str)
     given_date = datetime.strptime(date_str, date_format)
 
 
@@ -28,7 +27,6 @@ def get_past_date(date_str, n):
 def get_future_date(date_str, n):
   
     
-    print("this is it2",date_str)
     given_date = datetime.strptime(date_str, date_format)
 
 
@@ -65,7 +63,6 @@ def write_function(start_date,end_date,symbol,symbol1="a",symbol2="a"):
     if(symbol1 == "a"):
         df = stock_df(symbol=symbol, from_date=start_date,to_date=end_date, series="EQ")
         df=df.drop(["SERIES","SYMBOL"],axis=1)
-        print(df)
         file_name_csv="resources/data"+".csv"
         df.drop_duplicates(inplace=True)
         df.to_csv(file_name_csv,index=False)
@@ -95,9 +92,6 @@ def strategy(args):
       
         train_start_date = args[12]
         train_end_date = args[13] 
-        
-        
-        print("why h",train_start_date)
         if compare_dates(train_start_date,start_date):
             start_date = train_start_date
         if not compare_dates(train_end_date,end_date):
@@ -121,11 +115,10 @@ def strategy(args):
         
            
 def main(args):
-    print("Python Script Output:")
     i = 0 
-    for arg in args:
-        print(i,arg)
-        i = i+1
+    # for arg in args:
+    #     print(i,arg)
+    #     i = i+1
     
     strats = strategy(args) 
     symbol1 = args[16]

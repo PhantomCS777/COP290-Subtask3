@@ -59,7 +59,8 @@ void Output::write(bool is_pair)
     file.close();
     file_name="final_pnl.txt";
     std::ofstream file2(file_name);
-    file2<<this->final_profit_loss;
+    std::string profit=std::to_string(this->final_profit_loss);
+    file2<<profit;
     file2.close();
     if(!is_pair)
     {   
@@ -73,7 +74,6 @@ void Output::write(bool is_pair)
         file1.close();
     }
     else{
-        std::cout<<"I reached here"<<std::endl;
         file_name = "order_statistics_1.csv";
         std::ofstream file3(file_name);
         file3<<"Date,Order_dir,Quantity,Price"<<std::endl;
@@ -94,5 +94,4 @@ void Output::write(bool is_pair)
         }
         file4.close();
     }
-    
 }

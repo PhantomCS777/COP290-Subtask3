@@ -71,7 +71,6 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
             else{
                 ama=cur_price;
             }
-            std::cout<<"date "<<cur_date<<" ama "<<ama<<" sf "<<sf<<" price "<<cur_price<<std::endl;
             Cash_flow a(revback(cur_date),0);
             Order_stats b(revback(cur_date),"lol",0,0);
             // uptill this point all the factors required have been calculated
@@ -91,7 +90,6 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
 //buy stock here and add it to the queue
             }
             else if((cur_price-ama)<=(-1.0)*((p*ama)/100.0) && position>(-1*limit)){
-                std::cout<<cur_date<<" "<<"SELL"<<std::endl;
                 //sell the stock and add it to the queue
                 position--;
                 a.transaction+=cur_price;
