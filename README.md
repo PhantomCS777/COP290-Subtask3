@@ -62,14 +62,43 @@ The project directory is structured as follows:
 
 - `data_gen.py`: A Python script for generating historical data required for backtesting the strategies.
 - `main.cpp`: The entry point of the application, tying together all the strategies.
-- `Makefile`: Script for automating the compilation process. Simplifies the build process to a simple `make` command.
-- `README.md`: This markdown file providing a comprehensive overview of the project.
+- `Makefile`: Script for running the strategies. 
+- `README.md`: This markdown file report of the project.
 - `requirements.txt`: Lists all the Python dependencies required for the project.
 
-## Building and Running
-Provide instructions on how to build and run the project, including any dependencies that need to be installed.
+### Design and Abstractions
 
-Example:
-```bash
-make strategy=BASIC symbol=SBIN n=5 x=2 start_date="01/01/2023" end_date="31/12/2023"
+The project is designed with a clear separation of concerns, dividing the process into data handling, strategy implementation, execution, and output generation. Trivial things like not using namespace std; have been 
+
+### Data Handling
+The `stock_data.h` file suggests a `StockData` class or struct, which is a container for all stock-related data (e.g., open, high, low, close prices, etc.). The data is read from a CSV file into a `std::vector<StockData>`, which then becomes the primary data structure used throughout the strategies.
+
+Functions for date manipulation such as `reverse`, `replace_hyphens`, and `revback` are used to format the date strings accordingly, ensuring consistency in date representations throughout the program.
+
+
+Each trading strategy is encapsulated in its own pair of source and header files (`.cpp` and `.h`), promoting modularity and ease of maintenance. 
+
+
+Each strategy file contains a function (or a set of functions) that takes stock data and relevant parameters as input and outputs trading decisions.
+
+### Execution Flow
+The `main.cpp` file serves as the entry point for the program, handling command-line arguments and orchestrating the execution of the selected trading strategy. It demonstrates the use of OpenMP for parallel execution in the `BEST_OF_ALL` strategy, which concurrently runs multiple strategies to determine the most profitable one.
+
+### Output Generation
+The `Output` class or struct appears to be responsible for writing the results of the trading strategies to the filesystem. This includes:
+
+- Writing the daily cash flow to `daily_cashflow.csv`.
+- Writing the final profit and loss to `final_pnl.txt`.
+- Writing order statistics to either `order_statistics.csv` or `order_statistics_1.csv` and `order_statistics_2.csv` for pair strategies.
+
+The `write` function in the `Output` class checks the `is_pair` flag to determine the correct output format, which suggests a design with attention to the different requirements of single stock strategies versus pairs trading strategies.
+
+### Main Function Parameters
+The `main` function's usage of command-line arguments to set up the `Input` structure or class instance indicates a design that supports a variety of runtime configurations for different strategies, making the simulation flexible and dynamic.
+
+### Error Handling
+The data reading function `readStockPrice` includes basic error handling to check if the file is open, demonstrating the robustness of the design in terms of input validation.
+
+### Modular Design
+Overall, the project's design emphasizes modularity, with each strategy implemented as a separate, interchangeable component. This structure allows for easy addition, removal, or modification of strategies without affecting the core functionality of the simulation.
 
