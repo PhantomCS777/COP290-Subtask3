@@ -19,7 +19,8 @@ Output basic(std::vector <StockData> stockdata,Input inp)
     for(int i=total_data_size-2;i>=0;i--){
         std::string modified_date = replace_hyphens(stockdata[i].date);
         std::string write_date = revback(stockdata[i].date);
-        if(stockdata[i].close==stockdata[i+1].close){
+       
+        if(fabs(stockdata[i].close-stockdata[i+1].close) <10e-6){
             cur_trend=0;
             trend_days=0;
         }
@@ -48,7 +49,9 @@ Output basic(std::vector <StockData> stockdata,Input inp)
         if(modified_date>=start_date&&modified_date<=end_date){
             cur_price=stockdata[i].close;
             modified_date = write_date; 
+           
             if(trend_days>=n){
+                 
                 if(cur_trend==-1&&(curposition>(-1*limit))){
                     curposition--;
                     Cash_flow a(modified_date,final_profit_loss+stockdata[i].close);

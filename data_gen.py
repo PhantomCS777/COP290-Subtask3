@@ -67,6 +67,7 @@ def write_function(start_date,end_date,symbol,symbol1="a",symbol2="a"):
         df=df.drop(["SERIES","SYMBOL"],axis=1)
         print(df)
         file_name_csv="resources/data"+".csv"
+        df.drop_duplicates(inplace=True)
         df.to_csv(file_name_csv,index=False)
     else:
         df = stock_df(symbol=symbol1, from_date=start_date,to_date=end_date, series="EQ")
@@ -75,6 +76,8 @@ def write_function(start_date,end_date,symbol,symbol1="a",symbol2="a"):
         df1=df1.drop(["SERIES","SYMBOL"],axis=1)
         file_name_csv="resources/data"+".csv"
         file_name_csv1="resources/data1"+".csv"
+        df.drop_duplicates(inplace=True)
+        df1.drop_duplicates(inplace=True)
         df.to_csv(file_name_csv,index=False)
         df1.to_csv(file_name_csv1,index = False)
         

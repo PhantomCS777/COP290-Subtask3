@@ -53,7 +53,8 @@ void Output::write(bool is_pair)
     std::ofstream file(file_name);
     file<<"Date,"<<"Cashflow"<<std::endl;
     for(auto ele:this->daily){
-        file<<ele.date<<","<<ele.transaction<<std::endl;
+        std::string tran = std::to_string(ele.transaction); 
+        file<<ele.date<<","<<tran<<std::endl;
     }
     file.close();
     file_name="final_pnl.txt";
@@ -66,7 +67,8 @@ void Output::write(bool is_pair)
         std::ofstream file1(file_name);
         file1<<"Date,Order_dir,Quantity,Price"<<std::endl;
         for(auto ele:this->order1){
-            file1<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+            std::string element = std::to_string(ele.price);
+            file1<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<element<<std::endl;
         }
         file1.close();
     }
@@ -76,17 +78,19 @@ void Output::write(bool is_pair)
         std::ofstream file3(file_name);
         file3<<"Date,Order_dir,Quantity,Price"<<std::endl;
         for(auto ele:this->order1){
-            file3<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+            std::string element = std::to_string(ele.price);
+            file3<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<element<<std::endl;
         }
         file3.close();
         
         
         
-        file_name = "order_statistics2.csv";
+        file_name = "order_statistics_2.csv";
         std::ofstream file4(file_name);
         file4<<"Date,Order_dir,Quantity,Price"<<std::endl;
         for(auto ele:this->order2){
-            file4<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<ele.price<<std::endl;
+            std::string element = std::to_string(ele.price);
+            file4<<ele.date<<","<<ele.order_dir<<","<<ele.quantity<<","<<element<<std::endl;
         }
         file4.close();
     }

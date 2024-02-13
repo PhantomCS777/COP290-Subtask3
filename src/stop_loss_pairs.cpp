@@ -50,7 +50,7 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
             last_price = give_spread(stockData1[i],stockData2[i]);
             Order_stats stock1(cur_date,"lol",0,0);
             Order_stats stock2(cur_date,"lol",0,0);
-            std::cout<<"cur_date "<<cur_date<<" z_score "<<z_score<<" sd "<<sd<<std::endl;
+            // std::cout<<"cur_date "<<cur_date<<" z_score "<<z_score<<" sd "<<sd<<std::endl;
             if(z_score>threshold&&position>(-1*limit)){
                 if(already_bought.empty()){
                     already_sold.push_back({mean,sd});
@@ -120,10 +120,10 @@ Output stop_loss_pairs(std::vector <StockData> stockData1,std::vector <StockData
 
     }
     profit_loss+=position*last_price;
-    std::cout<<" order1 "<<order1.size()<<" order2 "<<order2.size()<<std::endl; 
-    for(auto ele:order2){
-        std::cout<<ele.date<<" "<<ele.order_dir<<" "<<ele.price<<" "<<ele.quantity<<std::endl;
-    }
+    // std::cout<<" order1 "<<order1.size()<<" order2 "<<order2.size()<<std::endl; 
+    // for(auto ele:order2){
+    //     std::cout<<ele.date<<" "<<ele.order_dir<<" "<<ele.price<<" "<<ele.quantity<<std::endl;
+    // }
     Output out(profit_loss,daily,order1,order2);
 
     return out;
