@@ -88,10 +88,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     else{
                         sell_day.push(i-max_hold_days);
                     }
-
-
 //buy stock here and add it to the queue
-
             }
             else if(cur_price<=(ama)-((p*ama)/100) && position>(-1*limit)){
                 std::cout<<cur_date<<" "<<"SELL"<<std::endl;
@@ -109,7 +106,32 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
                     buy_day.push(i-max_hold_days);
                 }
             }
-            
+            else if(cur_price>=(ama+ p*ama/100)&&position==limit){
+                if(!sell_day.empty()){
+                    if(sell_day.front()==i){
+                        position++;
+                        a.transaction-=cur_price;
+                        profit_loss-=cur_price;
+                        b.quantity=1;
+                        b.price=cur_price;
+                        b.order_dir="BUY";
+                        sell_day.push(i-max_hold_days);
+                    }
+                }
+            }       
+            else if(cur_price<=(ama)-((p*ama)/100) && position==(-1*limit)){
+                if(!buy_day.empty()){
+                    if(buy_day.front()==i){
+                        position--;
+                        a.transaction+=cur_price;
+                        profit_loss+=cur_price;
+                        b.quantity=1;
+                        b.price=cur_price;
+                        b.order_dir="SELL";
+                        buy_day.push(i-max_hold_days);
+                    }
+                }
+            }
             if(!sell_day.empty()){
                 if(sell_day.front()==i){
                     profit_loss+=cur_price;
@@ -161,7 +183,7 @@ Output modi_dma(std::vector <StockData> stockData,Input inp)
         sum_abs_diff-=mod_sub(stockData[i+n-1].close,stockData[i+n].close);
     }
 
-    profit_loss+=(position*last_price);
+    profit_loss += (position*last_price);
     // after squaring off final profit loss accomodated.
     // appropriate changes done
     Output ans(profit_loss,daily,order);
