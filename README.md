@@ -80,6 +80,7 @@ Functions for date manipulation such as `reverse`, `replace_hyphens`, and `revba
 Each trading strategy is encapsulated in its own pair of source and header files (`.cpp` and `.h`), promoting modularity and ease of maintenance. 
 
 
+
 Each strategy file contains the function `<strategy>(data,input)` that takes stock data and relevant parameters as input and outputs trading decisions. Data is of type `std::vector<StockData>` and input is of `Input` type.
 
 ### Execution Flow
@@ -91,9 +92,20 @@ Some points worth mentioning :
 **Output Generation**
 The `Output` class is responsible for writing the results of the trading strategies to the filesystem. The `write` function in the `Output` class checks the `is_pair` flag to determine the correct output format, which suggests a design with attention to the different requirements of single stock strategies versus pairs trading strategies.
 
-
-
  **Error Handling**
 The data reading function `readStockPrice` includes basic error handling to check if the file is open, demonstrating the robustness of the design in terms of input validation.
+
+### Algorithmic Optemizations 
+
+**DMA/DMA++/BASIC/PAIRS** : Used sliding window to make these run in `O(n)` where n is corresponds to number of trading days. 
+
+**STOP_LOSS_PAIR** : We need to close multiple position on same day based on z-score and stoploss threshold so we are able to achieve and maintain this is in theta of the current number of open positions.   
+
+
+**Linear Regression** : The biggest optimizations have been done for this. A very big concern in directly using the normal form and calculating inverse is that methods of calculation inverse is computationally heavy and numerically unstable(accumulation of floating point error). Hence we explored and concluded to use one of the standard algorithms of QR factorisation and Modified Gram Schmidt(which is numerically much stable). 
+The book reference : Numerical Linear Algebra (Lloyd N. Trefethen, David Bau III). 
+This also allowed us to solve for the weights of the model in `$O(mn^2)$` order where m is the number of  training days and n is the number of features. The function to calculate the `R score` also has been written. 
+
+
 
 
