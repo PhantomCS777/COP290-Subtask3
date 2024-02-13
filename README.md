@@ -69,7 +69,7 @@ The project directory is structured as follows:
 
 ## Design and Abstractions
 
-The project is designed with a clear separation of concerns, dividing the process into data handling, strategy implementation, execution, and output generation. There is an attempt to follow some common standards for the code like not using namespace std, DRY, etc.
+The project is designed with a clear separation of concerns, dividing the process into data handling, strategy implementation, execution, and output generation. There is an attempt to follow some common standards for the code like not using namespace std, DRY, etc. We are also compiling the final version with `-O3` flag for faster executables.
 
 ### Data Handling
 The `stock_data.h` file has a `StockData` struct, which is a container for all stock-related data (e.g., open, high, low, close prices, etc.). The data is read from a CSV file into a `std::vector<StockData>`,The `Input`struct contains all the possible parameters which the stragies will need and the `Output` class is the common data type to which all strategies return to (the class has methods to write the required output files). These become the primary data structure used throughout the strategies. This allows very high modularity in utilizing the stragies for example now to run a strategy simply `<strategy>(data,input)` needs to be called and the return type is same.
@@ -102,9 +102,27 @@ The data reading function `readStockPrice` includes basic error handling to chec
 **STOP_LOSS_PAIR** : We need to close multiple position on same day based on z-score and stoploss threshold so we are able to achieve and maintain this is in theta of the current number of open positions.   
 
 
-**Linear Regression** : The biggest optimizations have been done for this. A very big concern in directly using the normal form and calculating inverse is that methods of calculation inverse is computationally heavy and numerically unstable(accumulation of floating point error). Hence we explored and concluded to use one of the standard algorithms of QR factorisation and Modified Gram Schmidt(which is numerically much stable). 
-The book reference : Numerical Linear Algebra (Lloyd N. Trefethen, David Bau III). 
+**Linear Regression** : The biggest optimizations have been done for this. A very big concern in directly using the normal form and calculating inverse is that methods of calculation inverse is computationally heavy and numerically unstable(accumulation of floating point error). Hence we explored and concluded to use one of the standard algorithms of `QR factorisation and Modified Gram Schmidt`(which is numerically much stable). 
+The book reference : `Numerical Linear Algebra (Lloyd N. Trefethen, David Bau III)`. 
 This also allowed us to solve for the weights of the model in `$O(mn^2)$` order where m is the number of  training days and n is the number of features. The function to calculate the `R score` also has been written. 
+
+
+## Observations and Trends on various strategies 
+
+Below are the graphs of the price of stock/ various indicators / predicted prices/ for the nifty50 stock with symbol `SBIN`  : 
+
+**Trading Period**  : 01/01/2023 to 31/03/2023 
+
+**Training Period of LR** : 01/01/2022 to 31/12/2023  and p =2 
+
+For basic, we use n=7. For DMA, n=50. For DMA++, RSI and ADX,
+n=14.
+• Maximum position in all cases will be restricted to x=5.
+• adx threshold=25, oversold threshold=30, overbought threshold=70, max hold days=28,
+c1=0.2, c2=2.
+• For DMA, p=2, while for DMA++, p=5. 
+
+
 
 
 
